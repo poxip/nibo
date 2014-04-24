@@ -20,6 +20,9 @@
   "author": "MrPoxipol",
   "license": "GPL v3",
   "dependencies": {
-    "irc": "^0.3.6"
+    "irc": "^0.3.6",
+    "colors": "^0.6.2",
+    "mustache": "^0.8.1",
+    "mkdirp": "^0.4.0"
   }
 }

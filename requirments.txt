@@ -1,3 +1,6 @@
 # required modules
 irc
 colors
+mustache
+# logger.js
+mkdirp
