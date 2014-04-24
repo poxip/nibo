@@ -4,7 +4,11 @@ var debug = {
     on: false,
 
     log: function (message) {
-        console.log('DEBUG: '.bold.blue + message.grey);
+        console.log('LOG: '.bold.blue + message.white);
+    },
+
+    debug: function (message) {
+        console.log('DEBUG: '.bold.green + message.grey);
     },
 
     error: function (message) {
