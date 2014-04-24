@@ -1,4 +1,6 @@
 {
+    "debug": "true",
+
     "server": {
         "host": "irc.freenode.net",
         "port": 6667
@@ -10,11 +12,11 @@
         "realName": "NodeJS IRC Bot"
     },
 
-    "channels": ["#poxip"]
+    "channels": ["#poxip"],
 
-    "pluginsConfig": {
+    "plugins_conf": {
         "dir": "plugins"
     },
 
-    "plugins": ["test", "welcomer"]
+    "plugins": ["logger"]
 }

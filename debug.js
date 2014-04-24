@@ -7,16 +7,20 @@ var debug = {
         console.log('LOG: '.bold.blue + message.white);
     },
 
+    success: function (message) {
+        console.log('SUCCESS: '.bold.green + message.grey);
+    },
+
     debug: function (message) {
-        console.log('DEBUG: '.bold.green + message.grey);
+        console.log('DEBUG: '.bold.cyan + message.grey);
     },
 
     error: function (message) {
-        console.log('ERROR: '.bold.red + message.magenta);
+        console.log('ERROR: '.bold.red + message.magenta + '!!1'.magenta);
     },
 
     warning: function (message) {
-        console.log('WARNING: '.bold.yellow + message.grey);
+        console.log('WARNING: '.bold.yellow + message.grey + '!'.grey);
     }
 }
 
