@@ -4,3 +4,4 @@ colors
 mustache
 # logger.js
 mkdirp
+mustache
