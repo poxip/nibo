@@ -56,7 +56,7 @@ function initPlugins() {
 		plugins.push(tempPlugin);
 
 		// Init event
-		plugins[i].onPluginInit();
+		plugins[i].onPluginInit(bot);
 	}
 
 	if (plugins.length > 0) {
@@ -72,14 +72,14 @@ function initPlugins() {
 
 // Send events to the plugins
 function onBotJoin(channel) {
-	if (!channel) {
+	if (arguments.length < 1) {
 		debug.warning('onBotJoin(channel) requires 1 argument, given 0');
 		return;
 	}
 
 	for (var i in plugins) {
 		try {
-			plugins[i].onBotJoin(channel);
+			plugins[i].onBotJoin(bot, channel);
 		} catch (e) {
 			showPluginRuntimeError(plugins[i].meta.name, 'onBotJoin()', e);
 		}
@@ -87,16 +87,31 @@ function onBotJoin(channel) {
 }
 
 function onUserJoin(channel, user) {
-	if (!channel || !user) {
-		debug.warning('onUserJoin(channel, user) requires 2 arguments');
+	if (arguments.length < 2) {
+		debug.warning('onUserJoin(channel, user) requires 2 arguments, given ' + arguments.length);
 		return;
 	}
 
 	for (var i in plugins) {
 		try {
-			plugins[i].onUserJoin(channel, user);
+			plugins[i].onUserJoin(bot, channel, user);
 		} catch (e) {
 			showPluginRuntimeError(plugins[i].meta.name, 'onBotJoin()', e);
+		}
+	}
+}
+
+function onTopic(channel, topic, user, message) {
+	if (arguments.length < 4) {
+		debug.warning('onTopic(channel, topic, user, message) requires 4 arguments, given ' + arguments.length);
+		return;
+	}
+
+	for (var i in plugins) {
+		try {
+			plugins[i].onTopic(bot, channel, topic, user, message);
+		} catch (e) {
+			showPluginRuntimeError(plugins[i].meta.name, 'onTopic()', e);
 		}
 	}
 }
@@ -113,6 +128,10 @@ var bot = new irc.Client(
 );
 
 initPlugins();
+
+bot.addListener('topic', function (channel, topic, user, message) {
+	onTopic(channel, topic, user, message);
+});
 
 bot.addListener('join', function (channel, user) {
 	if (user == bot.nick) {
