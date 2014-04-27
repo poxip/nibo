@@ -89,4 +89,8 @@ exports.onTopic = function (bot, channel, topic, user, message) {
 
 exports.onUserJoin = function (bot, channel, user) {
 	writeToFile(channel, user, '[JOINED] to the channel ' + channel);
-}
+};
+
+exports.onMessage = function (bot, user, to, text, message) {
+	writeToFile(to, user.nick, message);
+};

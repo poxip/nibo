@@ -116,6 +116,27 @@ function onTopic(channel, topic, user, message) {
 	}
 }
 
+function onMessage(nick, to, text, message) {
+	if (arguments.length < 4) {
+		debug.warning('onMessage(user, to, text, message) requires 4 arguments, given ' + arguments.length);
+		return;
+	}
+
+	for (var i in plugins) {
+		try {
+			var user = {
+				nick: nick,
+				username: message.user,
+				host: message.host
+			};
+
+			plugins[i].onMessage(bot, user, to, text, message.args[1]);
+		} catch (e) {
+			showPluginRuntimeError(plugins[i].meta.name, 'onMessage()', e);
+		}
+	}
+}
+
 // Start bot = main function
 debug.log('Bot is starting up at the moment..');
 
@@ -141,4 +162,8 @@ bot.addListener('join', function (channel, user) {
 
 	// If user join to the channel
 	onUserJoin(channel, user);
+});
+
+bot.addListener('message', function (user, to, text, message) {
+	onMessage(user, to, text, message);
 });
