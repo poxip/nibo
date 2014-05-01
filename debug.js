@@ -2,7 +2,7 @@ var colors = require('colors')
 
 var debug = {
 	on: false,
-
+	// Don't use if you want to print object content
 	log: function (message) {
 		console.log('LOG: '.bold.blue + message.white);
 	},

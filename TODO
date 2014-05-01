@@ -18,6 +18,7 @@
 @todo Channel +Mode event (for channel and user)
 @todo Channel -Mode event (for channel and user)
 @todo Bot notice event
+@todo Command event (if message starts with prefix e.g. '.help')
 
 #core, events, plugins
 @future Ping event
