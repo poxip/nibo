@@ -77,7 +77,8 @@ var events = {
 	topic: 'onTopic',
 	userJoin: 'onUserJoin',
 	message: 'onMessage',
-	part: 'onUserPart'
+	part: 'onUserPart',
+	nick: 'onUserNickChange'
 };
 
 function executeCallback(eventName, args) {
@@ -159,4 +160,17 @@ bot.addListener('message', function (nick, to, text, message) {
 	};
 
 	executeCallback(events.message, args);
+});
+
+bot.addListener('nick', function (oldnick, newnick, userChannels, message) {
+	var user = bot.getUser(message);
+	user.nick = newnick; // nick is newnick!
+	user.oldnick = oldnick;
+
+	var args = {
+		user: user,
+		channels: userChannels,
+	};
+
+	executeCallback(events.nick, args);
 });
