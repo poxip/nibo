@@ -11,11 +11,11 @@ var debug = require('../debug');
 exports.meta = {
 	name: 'logger',
 	description: 'Logs all conversations on channels'
-}
+};
 
 // Plugin private variables and functions
-logDir = 'log';
-me = util.format('%s/me', config.bot.nick); // For LOG
+var logDir = 'log';
+var me = util.format('%s/me', config.bot.nick); // For LOG
 
 function getDirPath(channel) {
 	return path.join('./',
@@ -84,14 +84,30 @@ exports.onTopic = function (bot, channel, topic, user, message) {
 	};
 	var output = mustache.render(pattern, data);
 
-	fileName = getFileName();
+	var fileName = getFileName();
 	fs.appendFileSync(getDirPath(channel) + '/' + fileName, output);
 };
 
 exports.onUserJoin = function (bot, channel, nick) {
-	writeToFile(channel, user, '[JOINED] to the channel ' + channel);
+	writeToFile(channel, nick, '[JOINED] to the channel ' + channel);
 };
 
 exports.onMessage = function (bot, user, to, text, message) {
 	writeToFile(to, user.nick, message);
+};
+
+exports.onUserNickChange = function (bot, user, channels) {
+	for (var i in channels) {
+		var pattern = '** {{&oldnick}} is known as {{&newnick}}\n';
+		var data = {
+			oldnick: user.oldnick,
+			newnick: user.nick
+		};
+		var output = mustache.render(pattern, data);
+
+		var dirPath = getDirPath(channels[i]);
+		var fileName = getFileName();
+
+		fs.appendFileSync(dirPath + '/' + fileName, output);
+	}
 };
