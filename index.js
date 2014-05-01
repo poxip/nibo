@@ -3,13 +3,15 @@ var path = require('path');
 var util = require('util');
 // Mustache - easy string templates
 var mustache = require('mustache');
+// **Kwargs
+var kwargs = require('kwargs');
 // useful debug functions
 var debug = require('./debug');
 
 var irc = require('irc');
 var config = require('./config.json');
 
-var plugins = new Array();
+var plugins = [];
 
 // Some config
 debug.on = config.debug;
@@ -70,69 +72,21 @@ function initPlugins() {
 	}
 }
 
-// Send events to the plugins
-function onBotJoin(channel) {
-	if (arguments.length < 1) {
-		debug.warning('onBotJoin(channel) requires 1 argument, given 0');
-		return;
-	}
+var events = {
+	botJoin: 'onBotJoin',
+	topic: 'onTopic',
+	userJoin: 'onUserJoin',
+	message: 'onMessage',
+	part: 'onUserPart'
+};
 
+function executeCallback(eventName, args) {
+	args.bot = bot;
 	for (var i in plugins) {
 		try {
-			plugins[i].onBotJoin(bot, channel);
+			kwargs(plugins[i][eventName], args);
 		} catch (e) {
-			showPluginRuntimeError(plugins[i].meta.name, 'onBotJoin()', e);
-		}
-	}
-}
-
-function onUserJoin(channel, user) {
-	if (arguments.length < 2) {
-		debug.warning('onUserJoin(channel, user) requires 2 arguments, given ' + arguments.length);
-		return;
-	}
-
-	for (var i in plugins) {
-		try {
-			plugins[i].onUserJoin(bot, channel, user);
-		} catch (e) {
-			showPluginRuntimeError(plugins[i].meta.name, 'onBotJoin()', e);
-		}
-	}
-}
-
-function onTopic(channel, topic, user, message) {
-	if (arguments.length < 4) {
-		debug.warning('onTopic(channel, topic, user, message) requires 4 arguments, given ' + arguments.length);
-		return;
-	}
-
-	for (var i in plugins) {
-		try {
-			plugins[i].onTopic(bot, channel, topic, user, message);
-		} catch (e) {
-			showPluginRuntimeError(plugins[i].meta.name, 'onTopic()', e);
-		}
-	}
-}
-
-function onMessage(nick, to, text, message) {
-	if (arguments.length < 4) {
-		debug.warning('onMessage(user, to, text, message) requires 4 arguments, given ' + arguments.length);
-		return;
-	}
-
-	for (var i in plugins) {
-		try {
-			var user = {
-				nick: nick,
-				username: message.user,
-				host: message.host
-			};
-
-			plugins[i].onMessage(bot, user, to, text, message.args[1]);
-		} catch (e) {
-			showPluginRuntimeError(plugins[i].meta.name, 'onMessage()', e);
+			showPluginRuntimeError(plugins[i].meta.name, eventName + '()', e);
 		}
 	}
 }
@@ -150,20 +104,59 @@ var bot = new irc.Client(
 
 initPlugins();
 
-bot.addListener('topic', function (channel, topic, user, message) {
-	onTopic(channel, topic, user, message);
+bot.getUser = function (message) {
+	if (!message) {
+		debug.warning('bot.getUser() requires 1 argument, 0 given');
+		return;
+	}
+
+	var user = {
+		nick: message.nick,
+		username: message.user,
+		host: message.host,
+	};
+
+	return user;
+};
+
+bot.addListener('topic', function (channel, topic, nick, message) {
+	var user = {
+		nick: nick, // User who set it e.g. 'Niboman'
+		name: message.args[2] // Fullname e.g. 'Niboman!~nodejs@myhost.eu'
+	};
+	var args = {
+		channel: channel,
+		topic: topic,
+		user: user,
+		message: message
+	};
+
+	executeCallback(events.topic, args);
 });
 
-bot.addListener('join', function (channel, user) {
-	if (user == bot.nick) {
-		onBotJoin(channel);
+bot.addListener('join', function (channel, nick) {
+	if (nick == bot.nick) {
+		executeCallback(events.botJoin, {
+			channel: channel
+		});
 		return;
 	}
 
 	// If user join to the channel
-	onUserJoin(channel, user);
+	executeCallback(events.userJoin, {
+		channel: channel,
+		nick: nick
+	});
 });
 
-bot.addListener('message', function (user, to, text, message) {
-	onMessage(user, to, text, message);
+bot.addListener('message', function (nick, to, text, message) {
+	var user = bot.getUser(message);
+	var args = {
+		user: user,
+		to: to,
+		text: text,
+		message: message.args[1]
+	};
+
+	executeCallback(events.message, args);
 });
