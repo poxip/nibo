@@ -118,3 +118,23 @@ exports.onUserNickChange = function (bot, user, channels) {
 		fs.appendFileSync(dirPath + '/' + fileName, output);
 	}
 };
+
+exports.onUserPart = function (bot, channel, user, reason) {
+	var pattern = '** {{&fullName}} left the channel {{&channel}}';
+	if (reason)
+		pattern += ' ({{&reason}})';
+
+	var data = {
+		fullName: user.fullName,
+		channel: channel,
+		reason: reason
+	};
+	var output = mustache.render(pattern, data);
+
+	debug.log(output);
+	output += '\n';
+
+	var dirPath = getDirPath(channel);
+	var fileName = getFileName();
+	fs.appendFileSync(dirPath + '/' + fileName, output);
+}

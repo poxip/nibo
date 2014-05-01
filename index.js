@@ -115,7 +115,14 @@ bot.getUser = function (message) {
 		nick: message.nick,
 		username: message.user,
 		host: message.host,
+		fullName: util.format('%s!%s@%s',
+			message.nick,
+			message.user,
+			message.host
+		)
 	};
+
+	// The object may be incomplete
 
 	return user;
 };
@@ -142,8 +149,8 @@ bot.addListener('join', function (channel, nick, message) {
 		});
 		return;
 	}
-
 	var user = bot.getUser(message);
+
 	// If user join to the channel
 	executeCallback(events.userJoin, {
 		channel: channel,
@@ -174,4 +181,15 @@ bot.addListener('nick', function (oldnick, newnick, userChannels, message) {
 	};
 
 	executeCallback(events.nick, args);
+});
+
+bot.addListener('part', function (channel, nick, reason, message) {
+	var user = bot.getUser(message);
+	var args = {
+		channel: channel,
+		user: user,
+		reason: reason
+	};
+
+	executeCallback(events.part, args);
 });
