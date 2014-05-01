@@ -2,6 +2,7 @@
 irc
 colors
 mustache
+kwargs
 # logger.js
 mkdirp
 mustache
