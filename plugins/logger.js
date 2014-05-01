@@ -55,12 +55,11 @@ function writeToFile(channel, who, message) {
 		message
 	);
 
+	debug.log(text);
+
 	// Add new line to the file
 	text += '\n';
 	fs.appendFileSync(getDirPath(channel) + '/' + fileName, text);
-
-	// LOG THAT
-	debug.log(text);
 }
 
 exports.onPluginInit = function (bot) {
@@ -79,7 +78,7 @@ exports.onBotJoin = function (bot, channel) {
 };
 
 exports.onTopic = function (bot, channel, topic, user, message) {
-	var pattern = '** Topic for {{&channel}}: {{&topic}} by {{&name}}\n';
+	var pattern = '** Topic for {{&channel}}: {{&topic}} by {{&name}}';
 	var data = {
 		channel: channel,
 		topic: topic,
@@ -87,19 +86,15 @@ exports.onTopic = function (bot, channel, topic, user, message) {
 	};
 	var output = mustache.render(pattern, data);
 
+	debug.log(output);
+	output += '\n';
+
 	var fileName = getFileName();
 	fs.appendFileSync(getDirPath(channel) + '/' + fileName, output);
-
-	debug.log(output);
 };
 
 exports.onUserJoin = function (bot, channel, user) {
-	var fullName = util.format('%s!%s@%s',
-		user.nick,
-		user.username,
-		user.host
-	);
-	writeToFile(channel, fullName, '[JOINED] to the channel ' + channel);
+	writeToFile(channel, user.fullName, '[JOINED] to the channel ' + channel);
 };
 
 exports.onMessage = function (bot, user, to, text, message) {
@@ -108,17 +103,18 @@ exports.onMessage = function (bot, user, to, text, message) {
 
 exports.onUserNickChange = function (bot, user, channels) {
 	for (var i in channels) {
-		var pattern = '** {{&oldnick}} is known as {{&newnick}}\n';
+		var pattern = '** {{&oldnick}} is known as {{&newnick}}';
 		var data = {
 			oldnick: user.oldnick,
 			newnick: user.nick
 		};
 		var output = mustache.render(pattern, data);
 
+		debug.log(output);
+		output += '\n';
+
 		var dirPath = getDirPath(channels[i]);
 		var fileName = getFileName();
 		fs.appendFileSync(dirPath + '/' + fileName, output);
-
-		debug.log(output);
 	}
 };
