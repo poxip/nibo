@@ -1,1 +1,25 @@
-@todo Channel and bot events handling for plugins
+#core
+@future Convenient WHOIS function
+
+#core, events
+@done Improved callbacks
+@todo Join on invite option
+
+#core, events, plugins
+@done Bot join event
+@done Channel join event
+@done Topic change/check event
+@done Channel message event
+
+@todo Channel nick change event
+@todo Channel part event
+@todo Channel quit event
+@todo Channel kick event
+@todo Channel +Mode event (for channel and user)
+@todo Channel -Mode event (for channel and user)
+@todo Bot notice event
+
+#core, events, plugins
+@future Ping event
+@future Names event
+@future User killed event (sic!)
