@@ -3,6 +3,8 @@
 
 #core, events
 @done Improved callbacks
+
+@todo Plugins don't have to have all callbacks
 @todo Join on invite option
 
 #core, events, plugins
@@ -12,8 +14,8 @@
 @done Channel message event
 @done Channel nick change event
 @done Improved join event
+@done Channel part event
 
-@todo Channel part event
 @todo Channel quit event
 @todo Channel kick event
 @todo Channel +Mode event (for channel and user)
