@@ -10,8 +10,9 @@
 @done Channel join event
 @done Topic change/check event
 @done Channel message event
+@done Channel nick change event
+@done Improved join event
 
-@todo Channel nick change event
 @todo Channel part event
 @todo Channel quit event
 @todo Channel kick event

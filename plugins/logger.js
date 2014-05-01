@@ -88,8 +88,13 @@ exports.onTopic = function (bot, channel, topic, user, message) {
 	fs.appendFileSync(getDirPath(channel) + '/' + fileName, output);
 };
 
-exports.onUserJoin = function (bot, channel, nick) {
-	writeToFile(channel, nick, '[JOINED] to the channel ' + channel);
+exports.onUserJoin = function (bot, channel, user) {
+	var fullName = util.format('%s!%s@%s',
+		user.nick,
+		user.username,
+		user.host
+	);
+	writeToFile(channel, fullName, '[JOINED] to the channel ' + channel);
 };
 
 exports.onMessage = function (bot, user, to, text, message) {

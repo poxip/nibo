@@ -135,7 +135,7 @@ bot.addListener('topic', function (channel, topic, nick, message) {
 	executeCallback(events.topic, args);
 });
 
-bot.addListener('join', function (channel, nick) {
+bot.addListener('join', function (channel, nick, message) {
 	if (nick == bot.nick) {
 		executeCallback(events.botJoin, {
 			channel: channel
@@ -143,10 +143,11 @@ bot.addListener('join', function (channel, nick) {
 		return;
 	}
 
+	var user = bot.getUser(message);
 	// If user join to the channel
 	executeCallback(events.userJoin, {
 		channel: channel,
-		nick: nick
+		user: user
 	});
 });
 
