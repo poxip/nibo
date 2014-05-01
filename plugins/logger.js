@@ -58,6 +58,9 @@ function writeToFile(channel, who, message) {
 	// Add new line to the file
 	text += '\n';
 	fs.appendFileSync(getDirPath(channel) + '/' + fileName, text);
+
+	// LOG THAT
+	debug.log(text);
 }
 
 exports.onPluginInit = function (bot) {
@@ -86,6 +89,8 @@ exports.onTopic = function (bot, channel, topic, user, message) {
 
 	var fileName = getFileName();
 	fs.appendFileSync(getDirPath(channel) + '/' + fileName, output);
+
+	debug.log(output);
 };
 
 exports.onUserJoin = function (bot, channel, user) {
@@ -112,7 +117,8 @@ exports.onUserNickChange = function (bot, user, channels) {
 
 		var dirPath = getDirPath(channels[i]);
 		var fileName = getFileName();
-
 		fs.appendFileSync(dirPath + '/' + fileName, output);
+
+		debug.log(output);
 	}
 };
