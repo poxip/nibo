@@ -5,6 +5,7 @@ var mkdirp = require('mkdirp');
 var mustache = require('mustache');
 
 var config = require('../config.json');
+var debug = require('../debug');
 
 // Config
 exports.meta = {
@@ -75,11 +76,11 @@ exports.onBotJoin = function (bot, channel) {
 };
 
 exports.onTopic = function (bot, channel, topic, user, message) {
-	var pattern = '** Topic for {{&channel}}: {{&topic}} by {{&user}}\n';
+	var pattern = '** Topic for {{&channel}}: {{&topic}} by {{&name}}\n';
 	var data = {
 		channel: channel,
 		topic: topic,
-		user: user
+		name: user.name
 	};
 	var output = mustache.render(pattern, data);
 
@@ -87,7 +88,7 @@ exports.onTopic = function (bot, channel, topic, user, message) {
 	fs.appendFileSync(getDirPath(channel) + '/' + fileName, output);
 };
 
-exports.onUserJoin = function (bot, channel, user) {
+exports.onUserJoin = function (bot, channel, nick) {
 	writeToFile(channel, user, '[JOINED] to the channel ' + channel);
 };
 
