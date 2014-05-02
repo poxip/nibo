@@ -77,8 +77,9 @@ var events = {
 	topic: 'onTopic',
 	userJoin: 'onUserJoin',
 	message: 'onMessage',
+	nick: 'onUserNickChange',
 	part: 'onUserPart',
-	nick: 'onUserNickChange'
+	quit: 'onUserQuit'
 };
 
 function executeCallback(eventName, args) {
@@ -192,4 +193,15 @@ bot.addListener('part', function (channel, nick, reason, message) {
 	};
 
 	executeCallback(events.part, args);
+});
+
+bot.addListener('quit', function (nick, reason, channels, message) {
+	var user = bot.getUser(message);
+	var args = {
+		user: user,
+		channels: channels,
+		reason: reason
+	};
+
+	executeCallback(events.quit, args);
 });

@@ -137,4 +137,26 @@ exports.onUserPart = function (bot, channel, user, reason) {
 	var dirPath = getDirPath(channel);
 	var fileName = getFileName();
 	fs.appendFileSync(dirPath + '/' + fileName, output);
-}
+};
+
+exports.onUserQuit = function (bot, user, channels, reason) {
+	for (var i in channels) {
+		var pattern = '** {{&fullName}} left the channel {{&channel}}';
+		if (reason)
+			pattern += ' (Quit: {{&reason}})';
+
+		var data = {
+			fullName: user.fullName,
+			channel: channels[i],
+			reason: reason
+		};
+		var output = mustache.render(pattern, data);
+
+		debug.log(output);
+		output += '\n';
+
+		var dirPath = getDirPath(channel[i]);
+		var fileName = getFileName();
+		fs.appendFileSync(dirPath + '/' + fileName, output);
+	}
+};
