@@ -7,6 +7,8 @@ var mustache = require('mustache');
 var kwargs = require('kwargs');
 // String
 var S = require('string');
+// Colors
+var colors = require('colors');
 // useful debug functions
 var debug = require('./debug');
 
@@ -59,8 +61,13 @@ function initPlugins() {
 		debug.success('Module: ' + config.plugins[i] + ' loaded');
 		plugins.push(tempPlugin);
 
-		// Init event
-		plugins[i].onPluginInit(bot);
+		try {
+			// Init event
+			plugins[i].onPluginInit(bot);
+		} catch (e) {
+			debug.error(e.name);
+			console.log((new Error().stack).magenta);
+		}
 	}
 
 	if (plugins.length > 0) {
@@ -95,7 +102,7 @@ function executeCallback(eventName, args) {
 			kwargs(plugins[i][eventName], args);
 		} catch (e) {
 			showPluginRuntimeError(plugins[i].meta.name, eventName + '()', e);
-			console.log(new Error().stack);
+			console.log((new Error().stack).magenta);
 		}
 	}
 }

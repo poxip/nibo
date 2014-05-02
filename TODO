@@ -5,11 +5,12 @@
 #core, events
 @done Improved callbacks
 @done Show more info about error
+@done Catch exception on plugin onInit()
 
 @todo Plugins don't have to have all callbacks
-@todo Catch exception on plugin onInit()
 @todo Join on invite option
 @todo Join on kick option
+@todo Inform about connection errors
 
 #core, events, plugins
 @done Bot join event
