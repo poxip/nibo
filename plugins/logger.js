@@ -178,7 +178,7 @@ exports.onUserKick = function (bot, nick, by, channel, reason) {
 	appendToFile(dirPath + '/' + fileName, output);
 };
 
-exports.onMode = function (channel, by, mode, target) {
+exports.onMode = function (bot, channel, by, mode, target) {
 	var pattern = '** MODE {{&mode}}';
 	if (target)
 		pattern += ' {{&target}}';
@@ -197,7 +197,7 @@ exports.onMode = function (channel, by, mode, target) {
 	appendToFile(dirPath + '/' + fileName, output);
 };
 
-exports.onNotice = function (channel, to, text) {
+exports.onNotice = function (bot, channel, to, text) {
 	if (!channel) {
 		debug.log(to + ' ' + text);
 		return;
@@ -210,7 +210,7 @@ exports.onNotice = function (channel, to, text) {
 	};
 	var output = mustache.render(pattern, data);
 
-	var dirPath = getDirPath(channel);
+	var dirPath = getDirPath(to);
 	var fileName = getFileName();
 	appendToFile(dirPath + '/' + fileName, output);
 };
