@@ -6,6 +6,7 @@
 @done Improved callbacks
 
 @todo Plugins don't have to have all callbacks
+@todo Show more info about error
 @todo Join on invite option
 @todo Join on kick option
 
