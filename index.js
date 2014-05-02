@@ -81,7 +81,8 @@ var events = {
 	part: 'onUserPart',
 	quit: 'onUserQuit',
 	kick: 'onUserKick',
-	mode: 'onMode'
+	mode: 'onMode',
+	notice: 'onNotice'
 };
 
 function executeCallback(eventName, args) {
@@ -102,7 +103,9 @@ var bot = new irc.Client(
 	config.server.host,
 	config.bot.nick, {
 		port: config.server.port,
-		channels: config.channels
+		channels: config.channels,
+		showErrors: true,
+		stripColors: true
 	}
 );
 
@@ -237,4 +240,14 @@ bot.addListener('+mode', function (channel, by, mode, argument, message) {
 
 bot.addListener('-mode', function (channel, by, mode, argument, message) {
 	modeEvent(channel, by, mode, argument, '-');
+});
+
+bot.addListener('notice', function (channel, to, text, message) {
+	var args = {
+		channel: channel, // If notice from server - channel = undefined
+		to: to, // channel or user
+		text: text, // notice message
+	};
+
+	executeCallback(events.notice, args);
 });

@@ -31,14 +31,21 @@ function appendToFile(fileName, str) {
 	fs.appendFileSync(fileName, output);
 }
 
-function getDirPath(channel) {
-	return path.join('./',
+function getDirPath(channel, nocreate) {
+	var dirPath = path.join('./',
 		logDir,
 		config.server.host,
 		channel
 	);
 
-	// log/server/channel
+	if (!nocreate) {
+		if (!fs.existsSync(dirPath)) {
+			mkdirp.sync(dirPath);
+		}
+	}
+
+	return dirPath;
+	// log/server/channel // channel or nick
 }
 
 function addLeadingZero(date) {
@@ -78,9 +85,6 @@ exports.onBotJoin = function (bot, channel) {
 	// Create channel folder
 	// If folder named channel doesn't exit create it 
 	var dirPath = getDirPath(channel);
-	if (!fs.existsSync(dirPath)) {
-		mkdirp.sync(dirPath);
-	}
 
 	writeToFile(channel, me, '[JOINED] to the channel ' + channel);
 };
@@ -191,4 +195,22 @@ exports.onMode = function (channel, by, mode, target) {
 	var dirPath = getDirPath(channel);
 	var fileName = getFileName();
 	appendToFile(dirPath + '/' + fileName, output);
-}
+};
+
+exports.onNotice = function (channel, to, text) {
+	if (!channel) {
+		debug.log(to + ' ' + text);
+		return;
+	}
+
+	var pattern = '** NOTICE {{&channel}}: {{&message}}';
+	var data = {
+		channel: channel,
+		message: text
+	};
+	var output = mustache.render(pattern, data);
+
+	var dirPath = getDirPath(channel);
+	var fileName = getFileName();
+	appendToFile(dirPath + '/' + fileName, output);
+};
