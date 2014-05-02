@@ -151,7 +151,7 @@ exports.onUserQuit = function (bot, user, channels, reason) {
 		};
 		var output = mustache.render(pattern, data);
 
-		var dirPath = getDirPath(channel[i]);
+		var dirPath = getDirPath(channels[i]);
 		var fileName = getFileName();
 		appendToFile(dirPath + '/' + fileName, output);
 	}
