@@ -1,5 +1,6 @@
 #core
 @future Convenient WHOIS function
+@future Convenient NAMES function
 
 #core, events
 @done Improved callbacks
