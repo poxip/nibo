@@ -129,14 +129,15 @@ bot.getUser = function (message) {
 };
 
 bot.addListener('topic', function (channel, topic, nick, message) {
-	var user = {
-		nick: nick, // User who set it e.g. 'Niboman'
-		name: message.args[2] // Fullname e.g. 'Niboman!~nodejs@myhost.eu'
-	};
+	/*
+		If bot joins 		nick = full user name e.g 'niboman!~op@ophost.eu'
+		If op changes topic nick = op nick		  e.g 'niboman'
+	*/
+
 	var args = {
 		channel: channel,
 		topic: topic,
-		user: user,
+		nick: nick,
 		message: message
 	};
 
