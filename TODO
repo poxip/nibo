@@ -4,9 +4,10 @@
 
 #core, events
 @done Improved callbacks
+@done Show more info about error
 
 @todo Plugins don't have to have all callbacks
-@todo Show more info about error
+@todo Catch exception on plugin onInit()
 @todo Join on invite option
 @todo Join on kick option
 

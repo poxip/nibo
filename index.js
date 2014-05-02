@@ -95,6 +95,7 @@ function executeCallback(eventName, args) {
 			kwargs(plugins[i][eventName], args);
 		} catch (e) {
 			showPluginRuntimeError(plugins[i].meta.name, eventName + '()', e);
+			console.log(new Error().stack);
 		}
 	}
 }
