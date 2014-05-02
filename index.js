@@ -6,7 +6,7 @@ var mustache = require('mustache');
 // **Kwargs
 var kwargs = require('kwargs');
 // String
-var $ = require('string');
+var S = require('string');
 // useful debug functions
 var debug = require('./debug');
 
@@ -198,7 +198,7 @@ bot.addListener('message', function (nick, channel, text, message) {
 		message: message.args[1]
 	};
 
-	var isCommand = $(args.message).startsWith(config.commandPrefix);
+	var isCommand = S(args.message).startsWith(config.commandPrefix);
 	if (isCommand) {
 		executeCommand(args.user, args.channel, args.message);
 		return;
