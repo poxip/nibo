@@ -1,22 +1,24 @@
 {
-    "debug": "true",
+	"debug": "true",
 
-    "server": {
-        "host": "irc.freenode.net",
-        "port": 6667
-    },
+	"server": {
+		"host": "irc.freenode.net",
+		"port": 6667
+	},
 
-    "bot": {
-        "nick": "nibo",
-        "userName": "nibo",
-        "realName": "NodeJS IRC Bot"
-    },
+	"bot": {
+		"nick": "nibo",
+		"userName": "nibo",
+		"realName": "NodeJS IRC Bot"
+	},
 
-    "channels": ["#poxip"],
+	"channels": ["#poxip"],
 
-    "plugins_conf": {
-        "dir": "plugins"
-    },
+	"commandPrefix": "!",
 
-    "plugins": ["logger"]
+	"plugins_conf": {
+		"dir": "plugins"
+	},
+
+	"plugins": ["logger"]
 }

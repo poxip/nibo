@@ -17,18 +17,11 @@ exports.meta = {
 var logDir = 'log';
 var me = util.format('%s/me', config.bot.nick); // For LOG
 
-function appendToFile(fileName, str) {
-	var date = new Date();
-	var time = util.format('%s:%s',
-		addLeadingZero(date.getUTCHours()),
-		addLeadingZero(date.getUTCMinutes())
-	);
-	var output = time + ' ' + str;
+function addLeadingZero(date) {
+	if (date < 10)
+		return '0' + date;
 
-	debug.log(output);
-	output += '\n';
-
-	fs.appendFileSync(fileName, output);
+	return date;
 }
 
 function getDirPath(channel, nocreate) {
@@ -48,13 +41,6 @@ function getDirPath(channel, nocreate) {
 	// log/server/channel // channel or nick
 }
 
-function addLeadingZero(date) {
-	if (date < 10)
-		return '0' + date;
-
-	return date;
-}
-
 function getFileName() {
 	var date = new Date();
 	var fileName = util.format('%s_%s_%s.txt',
@@ -64,6 +50,20 @@ function getFileName() {
 	);
 
 	return fileName;
+}
+
+function appendToFile(fileName, str) {
+	var date = new Date();
+	var time = util.format('%s:%s',
+		addLeadingZero(date.getUTCHours()),
+		addLeadingZero(date.getUTCMinutes())
+	);
+	var output = time + ' ' + str;
+
+	debug.log(output);
+	output += '\n';
+
+	fs.appendFileSync(fileName, output);
 }
 
 function writeToFile(channel, who, message) {
@@ -106,8 +106,8 @@ exports.onUserJoin = function (bot, channel, user) {
 	writeToFile(channel, user.fullName, '[JOINED] to the channel ' + channel);
 };
 
-exports.onMessage = function (bot, user, to, text, message) {
-	writeToFile(to, user.nick, message);
+exports.onMessage = function (bot, user, channel, text, message) {
+	writeToFile(channel, user.nick, message);
 };
 
 exports.onUserNickChange = function (bot, user, channels) {
@@ -213,4 +213,14 @@ exports.onNotice = function (bot, channel, to, text) {
 	var dirPath = getDirPath(to);
 	var fileName = getFileName();
 	appendToFile(dirPath + '/' + fileName, output);
+};
+
+exports.onCommand = function (bot, user, channel, command) {
+	// Log it
+	var message = util.format('%s%s %s',
+		config.commandPrefix,
+		command.name,
+		command.args.join(' ')); // '!seen nibo'
+
+	writeToFile(channel, user.nick, message);
 };

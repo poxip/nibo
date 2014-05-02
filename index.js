@@ -5,6 +5,8 @@ var util = require('util');
 var mustache = require('mustache');
 // **Kwargs
 var kwargs = require('kwargs');
+// String
+var $ = require('string');
 // useful debug functions
 var debug = require('./debug');
 
@@ -77,6 +79,7 @@ var events = {
 	topic: 'onTopic',
 	userJoin: 'onUserJoin',
 	message: 'onMessage',
+	command: 'onCommand',
 	nick: 'onUserNickChange',
 	part: 'onUserPart',
 	quit: 'onUserQuit',
@@ -135,8 +138,8 @@ bot.getUser = function (message) {
 
 bot.addListener('topic', function (channel, topic, nick, message) {
 	/*
-		If bot joins 		nick = full user name e.g 'niboman!~op@ophost.eu'
-		If op changes topic nick = op nick		  e.g 'niboman'
+		If bot joins        nick = full user name e.g 'niboman!~op@ophost.eu'
+		If op changes topic nick = op nick        e.g 'niboman'
 	*/
 
 	var args = {
@@ -165,14 +168,41 @@ bot.addListener('join', function (channel, nick, message) {
 	});
 });
 
-bot.addListener('message', function (nick, to, text, message) {
+function splitCommand(str, prefix) {
+	var withoutPrefix = str.split(prefix)[1]; // 'command arg1 arg2'
+	var splitted = withoutPrefix.split(' '); // ['command', 'arg1', 'arg2']
+	var command = {
+		name: splitted[0], //
+		args: splitted.slice(1) // ['arg1', 'arg2']
+	};
+
+	return command;
+}
+
+function executeCommand(user, channel, message) {
+	var command = splitCommand(message, config.commandPrefix);
+	var args = {
+		user: user,
+		channel: channel,
+		command: command
+	};
+
+	executeCallback(events.command, args);
+}
+
+bot.addListener('message', function (nick, channel, text, message) {
 	var user = bot.getUser(message);
 	var args = {
 		user: user,
-		to: to,
-		text: text,
+		channel: channel,
 		message: message.args[1]
 	};
+
+	var isCommand = $(args.message).startsWith(config.commandPrefix);
+	if (isCommand) {
+		executeCommand(args.user, args.channel, args.message);
+		return;
+	}
 
 	executeCallback(events.message, args);
 });
@@ -244,7 +274,7 @@ bot.addListener('-mode', function (channel, by, mode, argument, message) {
 
 bot.addListener('notice', function (channel, to, text, message) {
 	var args = {
-		channel: channel, // If notice from server - channel = undefined
+		channel: channel, // If notice from server - channel = undefined, if notice from user = nick (from)
 		to: to, // channel or user
 		text: text, // notice message
 	};
