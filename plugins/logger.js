@@ -28,7 +28,7 @@ function appendToFile(fileName, str) {
 	debug.log(output);
 	output += '\n';
 
-	fs.appendFileSync(fileName, str);
+	fs.appendFileSync(fileName, output);
 }
 
 function getDirPath(channel) {
