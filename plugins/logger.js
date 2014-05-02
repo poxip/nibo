@@ -17,6 +17,20 @@ exports.meta = {
 var logDir = 'log';
 var me = util.format('%s/me', config.bot.nick); // For LOG
 
+function appendToFile(fileName, str) {
+	var date = new Date();
+	var time = util.format('%s:%s',
+		addLeadingZero(date.getUTCHours()),
+		addLeadingZero(date.getUTCMinutes())
+	);
+	var output = time + ' ' + str;
+
+	debug.log(output);
+	output += '\n';
+
+	fs.appendFileSync(fileName, str);
+}
+
 function getDirPath(channel) {
 	return path.join('./',
 		logDir,
@@ -48,18 +62,12 @@ function getFileName() {
 function writeToFile(channel, who, message) {
 	var date = new Date();
 	var fileName = getFileName();
-	var text = util.format('%s:%s <%s> %s',
-		addLeadingZero(date.getUTCHours()),
-		addLeadingZero(date.getUTCMinutes()),
+	var text = util.format('<%s> %s',
 		who,
 		message
 	);
 
-	debug.log(text);
-
-	// Add new line to the file
-	text += '\n';
-	fs.appendFileSync(getDirPath(channel) + '/' + fileName, text);
+	appendToFile(getDirPath(channel) + '/' + fileName, text);
 }
 
 exports.onPluginInit = function (bot) {
@@ -86,11 +94,8 @@ exports.onTopic = function (bot, channel, topic, user, message) {
 	};
 	var output = mustache.render(pattern, data);
 
-	debug.log(output);
-	output += '\n';
-
 	var fileName = getFileName();
-	fs.appendFileSync(getDirPath(channel) + '/' + fileName, output);
+	appendToFile(getDirPath(channel) + '/' + fileName, output);
 };
 
 exports.onUserJoin = function (bot, channel, user) {
@@ -110,12 +115,9 @@ exports.onUserNickChange = function (bot, user, channels) {
 		};
 		var output = mustache.render(pattern, data);
 
-		debug.log(output);
-		output += '\n';
-
 		var dirPath = getDirPath(channels[i]);
 		var fileName = getFileName();
-		fs.appendFileSync(dirPath + '/' + fileName, output);
+		appendToFile(dirPath + '/' + fileName, output);
 	}
 };
 
@@ -131,12 +133,9 @@ exports.onUserPart = function (bot, channel, user, reason) {
 	};
 	var output = mustache.render(pattern, data);
 
-	debug.log(output);
-	output += '\n';
-
 	var dirPath = getDirPath(channel);
 	var fileName = getFileName();
-	fs.appendFileSync(dirPath + '/' + fileName, output);
+	appendToFile(dirPath + '/' + fileName, output);
 };
 
 exports.onUserQuit = function (bot, user, channels, reason) {
@@ -152,11 +151,8 @@ exports.onUserQuit = function (bot, user, channels, reason) {
 		};
 		var output = mustache.render(pattern, data);
 
-		debug.log(output);
-		output += '\n';
-
 		var dirPath = getDirPath(channel[i]);
 		var fileName = getFileName();
-		fs.appendFileSync(dirPath + '/' + fileName, output);
+		appendToFile(dirPath + '/' + fileName, output);
 	}
 };
