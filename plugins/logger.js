@@ -85,12 +85,12 @@ exports.onBotJoin = function (bot, channel) {
 	writeToFile(channel, me, '[JOINED] to the channel ' + channel);
 };
 
-exports.onTopic = function (bot, channel, topic, user, message) {
-	var pattern = '** Topic for {{&channel}}: {{&topic}} by {{&name}}';
+exports.onTopic = function (bot, channel, topic, nick, message) {
+	var pattern = '** Topic for {{&channel}}: {{&topic}} by {{&nick}}';
 	var data = {
 		channel: channel,
 		topic: topic,
-		name: user.name
+		nick: nick,
 	};
 	var output = mustache.render(pattern, data);
 
@@ -155,4 +155,21 @@ exports.onUserQuit = function (bot, user, channels, reason) {
 		var fileName = getFileName();
 		appendToFile(dirPath + '/' + fileName, output);
 	}
+};
+
+exports.onUserKick = function (bot, nick, by, channel, reason) {
+	var pattern = '** {{&nick}} was kicked by {{&by}}';
+	if (reason)
+		pattern += ' ({{&reason}})';
+
+	var data = {
+		nick: nick,
+		by: by,
+		reason: reason
+	};
+	var output = mustache.render(pattern, data);
+
+	var dirPath = getDirPath(channel);
+	var fileName = getFileName();
+	appendToFile(dirPath + '/' + fileName, output);
 };

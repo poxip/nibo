@@ -15,9 +15,9 @@
 @done Channel nick change event
 @done Improved join event
 @done Channel part event
+@done Channel quit event
+@done Channel kick event
 
-@todo Channel quit event
-@todo Channel kick event
 @todo Channel +Mode event (for channel and user)
 @todo Channel -Mode event (for channel and user)
 @todo Bot notice event

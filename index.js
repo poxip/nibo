@@ -79,7 +79,8 @@ var events = {
 	message: 'onMessage',
 	nick: 'onUserNickChange',
 	part: 'onUserPart',
-	quit: 'onUserQuit'
+	quit: 'onUserQuit',
+	kick: 'onUserKick'
 };
 
 function executeCallback(eventName, args) {
@@ -205,4 +206,15 @@ bot.addListener('quit', function (nick, reason, channels, message) {
 	};
 
 	executeCallback(events.quit, args);
+});
+
+bot.addListener('kick', function (channel, nick, by, reason, message) {
+	var args = {
+		nick: nick,
+		by: by,
+		channel: channel,
+		reason: reason
+	};
+
+	executeCallback(events.kick, args);
 });
