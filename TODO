@@ -19,8 +19,8 @@
 @done Channel kick event
 @done Channel +Mode event (for channel and user)
 @done Channel -Mode event (for channel and user)
+@done Bot notice event
 
-@todo Bot notice event
 @todo Command event (if message starts with prefix e.g. '.help')
 
 #core, events, plugins
