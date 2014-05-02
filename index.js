@@ -80,7 +80,8 @@ var events = {
 	nick: 'onUserNickChange',
 	part: 'onUserPart',
 	quit: 'onUserQuit',
-	kick: 'onUserKick'
+	kick: 'onUserKick',
+	mode: 'onMode'
 };
 
 function executeCallback(eventName, args) {
@@ -217,4 +218,23 @@ bot.addListener('kick', function (channel, nick, by, reason, message) {
 	};
 
 	executeCallback(events.kick, args);
+});
+
+function modeEvent(channel, by, mode, target, type) {
+	var args = {
+		channel: channel,
+		by: by,
+		mode: type + mode, // e.g '+m' or '-b'
+		target: target // user or undefined if +mode is performed on channel
+	};
+
+	executeCallback(events.mode, args);
+}
+
+bot.addListener('+mode', function (channel, by, mode, argument, message) {
+	modeEvent(channel, by, mode, argument, '+');
+});
+
+bot.addListener('-mode', function (channel, by, mode, argument, message) {
+	modeEvent(channel, by, mode, argument, '-');
 });

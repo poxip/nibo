@@ -173,3 +173,22 @@ exports.onUserKick = function (bot, nick, by, channel, reason) {
 	var fileName = getFileName();
 	appendToFile(dirPath + '/' + fileName, output);
 };
+
+exports.onMode = function (channel, by, mode, target) {
+	var pattern = '** MODE {{&mode}}';
+	if (target)
+		pattern += ' {{&target}}';
+
+	pattern += ' by {{&by}}';
+
+	var data = {
+		mode: mode,
+		target: target,
+		by: by
+	};
+	var output = mustache.render(pattern, data);
+
+	var dirPath = getDirPath(channel);
+	var fileName = getFileName();
+	appendToFile(dirPath + '/' + fileName, output);
+}

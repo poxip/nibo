@@ -17,9 +17,9 @@
 @done Channel part event
 @done Channel quit event
 @done Channel kick event
+@done Channel +Mode event (for channel and user)
+@done Channel -Mode event (for channel and user)
 
-@todo Channel +Mode event (for channel and user)
-@todo Channel -Mode event (for channel and user)
 @todo Bot notice event
 @todo Command event (if message starts with prefix e.g. '.help')
 
