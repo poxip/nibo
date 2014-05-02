@@ -7,6 +7,7 @@
 
 @todo Plugins don't have to have all callbacks
 @todo Join on invite option
+@todo Join on kick option
 
 #core, events, plugins
 @done Bot join event
