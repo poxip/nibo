@@ -20,6 +20,22 @@ var plugins = [];
 // Some config
 debug.on = config.debug;
 
+var events = {
+	init: 'onPluginInit',
+	botJoin: 'onBotJoin',
+	topic: 'onTopic',
+	userJoin: 'onUserJoin',
+	message: 'onMessage',
+	command: 'onCommand',
+	nick: 'onUserNickChange',
+	part: 'onUserPart',
+	quit: 'onUserQuit',
+	kick: 'onUserKick',
+	mode: 'onMode',
+	notice: 'onNotice'
+};
+
+
 // Inform about error
 function showPluginRuntimeError(pluginName, method, exception) {
 	var data = {
@@ -31,6 +47,8 @@ function showPluginRuntimeError(pluginName, method, exception) {
 	var pattern = 'Module {{&plugin}} runtime error: {{&message}} in {{&method}}';
 	var output = mustache.render(pattern, data);
 	debug.error(output);
+
+	console.log((new Error().stack).magenta);
 }
 
 function initPlugins() {
@@ -63,10 +81,9 @@ function initPlugins() {
 
 		try {
 			// Init event
-			plugins[i].onPluginInit(bot);
+			plugins[i][events.init](bot);
 		} catch (e) {
-			debug.error(e.name);
-			console.log((new Error().stack).magenta);
+			showPluginRuntimeError(plugins[i].meta.name, events.init, e);
 		}
 	}
 
@@ -81,19 +98,6 @@ function initPlugins() {
 	}
 }
 
-var events = {
-	botJoin: 'onBotJoin',
-	topic: 'onTopic',
-	userJoin: 'onUserJoin',
-	message: 'onMessage',
-	command: 'onCommand',
-	nick: 'onUserNickChange',
-	part: 'onUserPart',
-	quit: 'onUserQuit',
-	kick: 'onUserKick',
-	mode: 'onMode',
-	notice: 'onNotice'
-};
 
 function executeCallback(eventName, args) {
 	args.bot = bot;
@@ -102,7 +106,6 @@ function executeCallback(eventName, args) {
 			kwargs(plugins[i][eventName], args);
 		} catch (e) {
 			showPluginRuntimeError(plugins[i].meta.name, eventName + '()', e);
-			console.log((new Error().stack).magenta);
 		}
 	}
 }
