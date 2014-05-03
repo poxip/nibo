@@ -10,6 +10,8 @@
 @todo Plugins don't have to have all callbacks
 @todo Join on invite option
 @todo Join on kick option
+@todo Bot say event
+@todo Tick event (for every 1s)
 @todo Inform about connection errors
 
 #core, events, plugins
