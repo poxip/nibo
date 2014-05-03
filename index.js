@@ -116,7 +116,8 @@ var bot = new irc.Client(
 		port: config.server.port,
 		channels: config.channels,
 		showErrors: true,
-		stripColors: true
+		stripColors: true,
+		encoding: 'ISO-8859-1' // optional encoding - bug in nodeirc
 	}
 );
 
