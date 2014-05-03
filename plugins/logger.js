@@ -179,13 +179,15 @@ exports.onUserKick = function (bot, nick, by, channel, reason) {
 };
 
 exports.onMode = function (bot, channel, by, mode, target) {
-	var pattern = '** MODE {{&mode}}';
+	var pattern = '** MODE {{&channel]} {{&mode}}';
 	if (target)
 		pattern += ' {{&target}}';
 
-	pattern += ' by {{&by}}';
+	if (by)
+		pattern += ' by {{&by}}';
 
 	var data = {
+		channel: channel,
 		mode: mode,
 		target: target,
 		by: by
