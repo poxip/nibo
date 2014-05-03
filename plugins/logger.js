@@ -225,4 +225,6 @@ exports.onCommand = function (bot, user, channel, command) {
 		command.args.join(' ')); // '!seen nibo'
 
 	writeToFile(channel, user.nick, message);
+
+	// return 'some to user who send me command' -> <nibo/me> userwhichsendthatcommand: blabal some to user who send me commands
 };

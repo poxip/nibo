@@ -98,15 +98,35 @@ function initPlugins() {
 	}
 }
 
+function sendCommandResult(result, method, pluginName, args) {
+	try {
+		var pattern = '{{&nick}}: {{&message}}';
+		var message = result.toString(); // Command result
+		var data = {
+			nick: args.user.nick,
+			message: message
+		};
+		var output = mustache.render(pattern, data);
+
+		bot.say(args.channel, output);
+	} catch (e) {
+		debug.error('While sending command return message to the user');
+		showPluginRuntimeError(method, pluginName, e);
+	}
+}
 
 function executeCallback(eventName, args) {
 	args.bot = bot;
 	for (var i in plugins) {
+		var result;
 		try {
-			kwargs(plugins[i][eventName], args);
+			result = kwargs(plugins[i][eventName], args);
 		} catch (e) {
 			showPluginRuntimeError(plugins[i].meta.name, eventName + '()', e);
 		}
+
+		if (result && eventName === events.command)
+			sendCommandResult(result, eventName, plugins[i].meta.name, args);
 	}
 }
 
