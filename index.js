@@ -32,9 +32,9 @@ var events = {
 	quit: 'onUserQuit',
 	kick: 'onUserKick',
 	mode: 'onMode',
-	notice: 'onNotice'
+	notice: 'onNotice',
+	botSay: 'onBotSay'
 };
-
 
 // Inform about error
 function showPluginRuntimeError(pluginName, method, exception) {
@@ -44,7 +44,7 @@ function showPluginRuntimeError(pluginName, method, exception) {
 		method: method
 	};
 
-	var pattern = 'Module {{&plugin}} runtime error: {{&message}} in {{&method}}';
+	var pattern = 'Module {{&plugin}} runtime error: {{&message}} in callback {{&method}}';
 	var output = mustache.render(pattern, data);
 	debug.error(output);
 
@@ -143,6 +143,18 @@ var bot = new irc.Client(
 		encoding: 'ISO-8859-1' // optional encoding - bug in nodeirc
 	}
 );
+
+bot.oldsay = bot.say;
+bot.say = function (target, message) {
+	bot.oldsay(target, message);
+
+	var args = {
+		channel: target,
+		message: message
+	};
+	// Bot says - event
+	executeCallback(events.botSay, args);
+};
 
 initPlugins();
 
