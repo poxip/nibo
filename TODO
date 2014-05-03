@@ -3,18 +3,18 @@
 @future Convenient NAMES function
 
 #core, events
+@todo Plugins don't have to have all callbacks
+@todo Join on invite option
+@todo Join on kick option
+@todo Inform about connection errors
+
 @done Improved callbacks
 @done Show more info about error
 @done Catch exception on plugin onInit()
 
-@todo Plugins don't have to have all callbacks
-@todo Join on invite option
-@todo Join on kick option
-@todo Bot say event
-@todo Tick event (for every 1s)
-@todo Inform about connection errors
-
 #core, events, plugins
+@todo Tick event (for every 1s)
+
 @done Bot join event
 @done Channel join event
 @done Topic change/check event
@@ -28,6 +28,7 @@
 @done Channel -Mode event (for channel and user)
 @done Bot notice event
 @done Command event (if message starts with prefix e.g. '.help')
+@done Bot say event
 
 #core, events, plugins
 @future Ping event
