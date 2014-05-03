@@ -11,7 +11,8 @@ var events = {
 	kick: 'onUserKick',
 	mode: 'onMode',
 	notice: 'onNotice',
-	botSay: 'onBotSay'
+	botSay: 'onBotSay',
+	tick: 'onUpdate'
 };
 
 module.exports = events;

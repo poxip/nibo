@@ -232,3 +232,5 @@ exports.onCommand = function (bot, user, channel, command) {
 exports.onBotSay = function (bot, channel, message) {
 	writeToFile(channel, me, message);
 };
+
+exports.onUpdate = function (bot) {}

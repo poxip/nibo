@@ -6,6 +6,7 @@
 @todo Plugins don't have to have all callbacks
 @todo Join on invite option
 @todo Join on kick option
+@todo Most of config options are optional
 @todo Inform about connection errors
 
 @done Improved callbacks

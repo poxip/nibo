@@ -311,3 +311,14 @@ bot.addListener('notice', function (channel, to, text, message) {
 
 	executeCallback(events.notice, args);
 });
+
+function tickEvent() {
+	executeCallback(events.tick, {});
+	/*	By setting new timeout
+		I have more control
+	*/
+	setTimeout(tickEvent, config.tickTime);
+}
+
+// Setup tick event
+setTimeout(tickEvent, config.tickTime);
