@@ -15,26 +15,12 @@ var debug = require('./debug');
 var irc = require('irc');
 var config = require('./config.json');
 
+var events = require('./events');
+
 var plugins = [];
 
 // Some config
 debug.on = config.debug;
-
-var events = {
-	init: 'onPluginInit',
-	botJoin: 'onBotJoin',
-	topic: 'onTopic',
-	userJoin: 'onUserJoin',
-	message: 'onMessage',
-	command: 'onCommand',
-	nick: 'onUserNickChange',
-	part: 'onUserPart',
-	quit: 'onUserQuit',
-	kick: 'onUserKick',
-	mode: 'onMode',
-	notice: 'onNotice',
-	botSay: 'onBotSay'
-};
 
 // Inform about error
 function showPluginRuntimeError(pluginName, method, exception) {
