@@ -4,6 +4,7 @@ colors
 mustache
 kwargs
 string
+iconv
 # logger.js
 mkdirp
 mustache
