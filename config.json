@@ -9,7 +9,7 @@
 	"bot": {
 		"nick": "nibo",
 		"userName": "nibo",
-		"realName": "NodeJS IRC Bot"
+		"realName": "NodeJS IRC Bot src: http://git.io/y5fYXQ"
 	},
 	"joinOnInvite": true,
 	"tickTime": 1000,
@@ -17,9 +17,6 @@
 
 	"commandPrefix": "!",
 
-	"plugins_conf": {
-		"dir": "plugins"
-	},
-
+	"pluginsDir": "plugins",
 	"plugins": ["logger"]
 }
