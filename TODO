@@ -14,8 +14,6 @@
 @done Catch exception on plugin onInit()
 
 #core, events, plugins
-@todo Tick event (for every 1s)
-
 @done Bot join event
 @done Channel join event
 @done Topic change/check event
@@ -30,6 +28,7 @@
 @done Bot notice event
 @done Command event (if message starts with prefix e.g. '.help')
 @done Bot say event
+@done Tick event (for every 1s)
 
 #core, events, plugins
 @future Ping event
