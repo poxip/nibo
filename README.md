@@ -14,7 +14,8 @@ patch node_modules/irc/lib/irc.js irc.js.patch
 Nibo uses **node-icu-charset-detector** module, that need **libicu**.
 You can install **ICU** from your package manager, ie. for **apt**:
 ``` 
-apt-get install libicu-dev ```
+apt-get install libicu-dev
+```
 or build from sources http://site.icu-project.org/download
 
 __WIP__, but almost done..
