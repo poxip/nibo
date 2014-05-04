@@ -130,11 +130,20 @@ var bot = new irc.Client(
 	config.bot.nick, {
 		port: config.server.port,
 		channels: config.channels,
-		showErrors: true,
 		stripColors: true,
+		retryCount: 5,
 		encoding: true // optional encoding - bug in nodeirc
 	}
 );
+
+bot.addListener('abort', function (retryCount) {
+	var message = util.format('Unable to connect to %s:%s',
+		config.server.host,
+		config.server.port);
+
+	debug.error(message);
+	process.exit();
+});
 
 bot.oldsay = bot.say;
 bot.say = function (target, message) {

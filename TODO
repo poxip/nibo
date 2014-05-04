@@ -4,13 +4,13 @@
 
 #core, events
 @todo Most of config options are optional
-@todo Inform about connection errors
 
 @done Improved callbacks
 @done Show more info about error
 @done Catch exception on plugin onInit()
 @done Plugins don't have to have all callbacks
 @done Join on invite option
+@done Inform about connection errors
 
 #core, events, plugins
 @done Bot join event
