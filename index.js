@@ -328,3 +328,8 @@ function tickEvent() {
 
 // Setup tick event
 setTimeout(tickEvent, config.tickTime);
+
+bot.addListener('invite', function (channel, from, message) {
+	if (config.joinOnInvite)
+		bot.join(channel);
+});

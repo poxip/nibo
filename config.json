@@ -11,6 +11,7 @@
 		"userName": "nibo",
 		"realName": "NodeJS IRC Bot"
 	},
+	"joinOnInvite": true,
 	"tickTime": 1000,
 	"channels": ["#poxip"],
 
