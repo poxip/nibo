@@ -1,4 +1,5 @@
 var colors = require('colors')
+var util = require('util');
 
 var debug = {
 	on: false,
@@ -13,7 +14,7 @@ var debug = {
 
 	debug: function (message) {
 		if (this.on)
-			console.log('DEBUG: '.bold.cyan + message.grey);
+			console.log('DEBUG: '.bold.cyan + message.toString().grey);
 	},
 
 	error: function (message) {
