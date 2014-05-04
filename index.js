@@ -1,6 +1,7 @@
 // Useful modules
 var path = require('path');
 var util = require('util');
+var fs = require('fs');
 // Mustache - easy string templates
 var mustache = require('mustache');
 // **Kwargs
@@ -11,16 +12,72 @@ var S = require('string');
 var colors = require('colors');
 // useful debug functions
 var debug = require('./debug');
-
 var irc = require('irc');
-var config = require('./config.json');
-
 var events = require('./events');
+var config = require('./config');
 
 var plugins = [];
 
-// Some config
-debug.on = config.debug;
+var configPath_default = './config.json';
+
+function showConfigLoadError() {
+	debug.warning('Unable to load config file');
+};
+
+function _loadConfig(configPath) {
+	// plain version
+	var file;
+	try {
+		file = fs.readFileSync(configPath);
+	} catch (e) {
+		if (e.code === 'ENOENT')
+			return "Specified config file does not exist";
+
+		// Catch other errors
+		return "Error occurred while loading config file!\n" + (new Error().stack);
+	}
+
+	var parsedConfig;
+	// Parse json
+	try {
+		parsedConfig = JSON.parse(file);
+	} catch (e) {
+		// Parsing error
+		return "Config parsing error occurred: " + e.name + '\n' + (new Error().stack);
+	}
+	// Set up only these variables, which are set in config file
+	for (var key in parsedConfig) {
+		var parsedVar = parsedConfig[key];
+		var debugMsg = util.format('config[%s] => %s', key, util.inspect(parsedVar));
+		debug.debug(debugMsg);
+
+		config[key] = parsedVar;
+		// {foo: {a: 'bar'}} support
+		if (parsedVar.length > 1)
+			for (var sub in parsedVar) {
+				config[key][sub] = parsedVar[sub];
+			}
+	}
+}
+
+function loadConfig(configPath) {
+	debug.log('Config is loaded now');
+	if (!configPath)
+		configPath = configPath_default;
+
+	var error = _loadConfig(configPath);
+	if (!error) {
+		// Config loaded
+		debug.success('Config loaded');
+		return true;
+	}
+
+	var msg = util.format('Unable to load config file \'%s\'', configPath);
+	debug.warning(msg);
+	debug.warning(error); // bla bla (more info)
+
+	return false;
+}
 
 // Inform about error
 function showPluginRuntimeError(pluginName, method, exception) {
@@ -40,7 +97,7 @@ function showPluginRuntimeError(pluginName, method, exception) {
 function initPlugins() {
 	for (var i in config.plugins) {
 		var pluginPath = './' +
-			path.join(config.plugins_conf.dir, config.plugins[i]);
+			path.join(config.pluginsDir, config.plugins[i]);
 
 		debug.debug('Plugin ' + config.plugins[i] + ' path: ' + pluginPath);
 
@@ -57,7 +114,7 @@ function initPlugins() {
 			var pattern = 'Module {{&plugin}} load error: {{&message}}';
 			var output = mustache.render(pattern, data);
 			debug.error(output);
-
+			console.log((new Error().stack).magenta);
 			// If module name is wrong don't add that
 			continue;
 		}
@@ -122,6 +179,10 @@ function executeCallback(eventName, args) {
 	}
 }
 
+// Some config
+debug.on = config.debug;
+
+loadConfig();
 // Start bot = main function
 debug.log('Bot is starting up at the moment..');
 
