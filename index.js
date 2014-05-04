@@ -132,7 +132,7 @@ var bot = new irc.Client(
 		channels: config.channels,
 		showErrors: true,
 		stripColors: true,
-		encoding: 'UTF-8' // optional encoding - bug in nodeirc
+		encoding: true // optional encoding - bug in nodeirc
 	}
 );
 
