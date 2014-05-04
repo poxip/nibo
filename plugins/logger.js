@@ -4,7 +4,7 @@ var util = require('util');
 var mkdirp = require('mkdirp');
 var mustache = require('mustache');
 
-var config = require('../config.json');
+var config = require('../config');
 var debug = require('../debug');
 
 // Config
@@ -76,10 +76,6 @@ function writeToFile(channel, who, message) {
 
 	appendToFile(getDirPath(channel) + '/' + fileName, text);
 }
-
-exports.onPluginInit = function (bot) {
-
-};
 
 exports.onBotJoin = function (bot, channel) {
 	// Create channel folder
