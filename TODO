@@ -3,8 +3,6 @@
 @future Convenient NAMES function
 
 #core, events
-@todo Join on invite option
-@todo Join on kick option
 @todo Most of config options are optional
 @todo Inform about connection errors
 
@@ -12,6 +10,7 @@
 @done Show more info about error
 @done Catch exception on plugin onInit()
 @done Plugins don't have to have all callbacks
+@done Join on invite option
 
 #core, events, plugins
 @done Bot join event
