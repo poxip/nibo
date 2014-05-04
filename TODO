@@ -3,7 +3,6 @@
 @future Convenient NAMES function
 
 #core, events
-@todo Plugins don't have to have all callbacks
 @todo Join on invite option
 @todo Join on kick option
 @todo Most of config options are optional
@@ -12,6 +11,7 @@
 @done Improved callbacks
 @done Show more info about error
 @done Catch exception on plugin onInit()
+@done Plugins don't have to have all callbacks
 
 #core, events, plugins
 @done Bot join event

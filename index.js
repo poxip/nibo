@@ -67,7 +67,10 @@ function initPlugins() {
 
 		try {
 			// Init event
-			plugins[i][events.init](bot);
+			var callback = plugins[i][events.init];
+			if (callback)
+				callback(bot);
+
 		} catch (e) {
 			showPluginRuntimeError(plugins[i].meta.name, events.init, e);
 		}
@@ -106,7 +109,10 @@ function executeCallback(eventName, args) {
 	for (var i in plugins) {
 		var result;
 		try {
-			result = kwargs(plugins[i][eventName], args);
+			var callback = plugins[i][eventName];
+			if (callback)
+				result = kwargs(callback, args);
+
 		} catch (e) {
 			showPluginRuntimeError(plugins[i].meta.name, eventName + '()', e);
 		}
