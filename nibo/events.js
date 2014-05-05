@@ -1,3 +1,7 @@
+/** Created on May 03, 2014
+ *  author: MrPoxipol
+ */
+
 var events = {
 	init: 'onPluginInit',
 	botJoin: 'onBotJoin',

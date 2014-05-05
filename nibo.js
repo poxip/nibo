@@ -1,3 +1,7 @@
+/** Created on Apr 24, 2014
+ *  author: MrPoxipol
+ */
+
 // Useful modules
 var path = require('path');
 var util = require('util');
@@ -10,74 +14,13 @@ var kwargs = require('kwargs');
 var S = require('string');
 // Colors
 var colors = require('colors');
-// useful debug functions
-var debug = require('./debug');
 var irc = require('irc');
-var events = require('./events');
-var config = require('./config');
+
+var debug = require('./nibo/debug');
+var events = require('./nibo/events');
+var config = require('./nibo/config');
 
 var plugins = [];
-
-var configPath_default = './config.json';
-
-function showConfigLoadError() {
-	debug.warning('Unable to load config file');
-};
-
-function _loadConfig(configPath) {
-	// plain version
-	var file;
-	try {
-		file = fs.readFileSync(configPath);
-	} catch (e) {
-		if (e.code === 'ENOENT')
-			return "Specified config file does not exist";
-
-		// Catch other errors
-		return "Error occurred while loading config file!\n" + (new Error().stack);
-	}
-
-	var parsedConfig;
-	// Parse json
-	try {
-		parsedConfig = JSON.parse(file);
-	} catch (e) {
-		// Parsing error
-		return "Config parsing error occurred: " + e.name + '\n' + (new Error().stack);
-	}
-	// Set up only these variables, which are set in config file
-	for (var key in parsedConfig) {
-		var parsedVar = parsedConfig[key];
-		var debugMsg = util.format('config[%s] => %s', key, util.inspect(parsedVar));
-		debug.debug(debugMsg);
-
-		config[key] = parsedVar;
-		// {foo: {a: 'bar'}} support
-		if (parsedVar.length > 1)
-			for (var sub in parsedVar) {
-				config[key][sub] = parsedVar[sub];
-			}
-	}
-}
-
-function loadConfig(configPath) {
-	debug.log('Config is loaded now');
-	if (!configPath)
-		configPath = configPath_default;
-
-	var error = _loadConfig(configPath);
-	if (!error) {
-		// Config loaded
-		debug.success('Config loaded');
-		return true;
-	}
-
-	var msg = util.format('Unable to load config file \'%s\'', configPath);
-	debug.warning(msg);
-	debug.warning(error); // bla bla (more info)
-
-	return false;
-}
 
 // Inform about error
 function showPluginRuntimeError(pluginName, method, exception) {
@@ -102,7 +45,6 @@ function initPlugins() {
 		debug.debug('Plugin ' + config.plugins[i] + ' path: ' + pluginPath);
 
 		var tempPlugin;
-
 		try {
 			tempPlugin = require(pluginPath);
 		} catch (e) {
@@ -180,9 +122,10 @@ function executeCallback(eventName, args) {
 }
 
 // Some config
+// FIXME: This param should be read from argv
 debug.on = config.debug;
 
-loadConfig();
+config.loadConfig();
 // Start bot = main function
 debug.log('Bot is starting up at the moment..');
 

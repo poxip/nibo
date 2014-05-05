@@ -1,11 +1,15 @@
+/** Created on Apr 24, 2014
+ *  author: MrPoxipol
+ */
+
 var fs = require('fs');
 var path = require('path');
 var util = require('util');
 var mkdirp = require('mkdirp');
 var mustache = require('mustache');
 
-var config = require('../config');
-var debug = require('../debug');
+var config = require('../nibo/config');
+var debug = require('../nibo/debug');
 
 // Config
 exports.meta = {

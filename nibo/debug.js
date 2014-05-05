@@ -1,4 +1,8 @@
-var colors = require('colors')
+/** Created on Apr 24, 2014
+ *  author: MrPoxipol
+ */
+
+var colors = require('colors');
 var util = require('util');
 
 var debug = {
@@ -13,8 +17,9 @@ var debug = {
 	},
 
 	debug: function (message) {
-		if (this.on)
+		if (this.on) {
 			console.log('DEBUG: '.bold.cyan + message.toString().grey);
+		}
 	},
 
 	error: function (message) {

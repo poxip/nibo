@@ -2,13 +2,14 @@
   "name": "nibo",
   "version": "0.0.1",
   "description": "NodeJS IRC Bot",
-  "main": "index.js",
+  "main": "nibo.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node nibo.js"
   },
   "repository": {
     "type": "git",
-    "url": "nibo"
+    "url": "http://github.com/MrPoxipol/nibo"
   },
   "keywords": [
     "nibo",
