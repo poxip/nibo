@@ -182,6 +182,8 @@ function main() {
 	bot = new irc.Client(
 		config.server.host,
 		config.bot.nick, {
+			userName: config.bot.userName,
+			realName: config.bot.realName,
 			port: config.server.port,
 			channels: config.channels,
 			stripColors: true,
