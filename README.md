@@ -5,7 +5,7 @@ _nibo_ is useful IRC bot, that can be extended by creating additional __plugins_
 
 Full dependecies list is included in **package.json** or **requirments.txt** (with description)
 
-# How to launch
+# Running
 Be sure, that you have installed [NodeJS](http://nodejs.org). Check the *Before launching* section for more.
 
 Just run:
