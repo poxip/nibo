@@ -153,9 +153,30 @@ function tickEvent() {
 	setTimeout(tickEvent, config.tickTime);
 }
 
+function getArgvOptions() {
+	var programArgs = require('optimist').argv,
+		help = 'Options:\n' + '--config=path - config filename (or path) (optional)\n' + '--debug (optional)';
+
+	if (programArgs.h || programArgs.help) {
+		console.log(help);
+		process.exit(0);
+	}
+
+	// node programname config-file.json debug
+	var options = {
+		config: programArgs.config,
+		debug: programArgs.debug
+	};
+
+	return options;
+}
+
 function main() {
-	config.loadConfig();
-	// Start bot = main function
+	var options = getArgvOptions();
+	debug.on = options.debug;
+	if (options.config)
+		config.loadConfig(options.config);
+
 	debug.log('Bot is starting up at the moment..');
 
 	bot = new irc.Client(

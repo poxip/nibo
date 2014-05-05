@@ -6,6 +6,7 @@ kwargs
 string
 iconv
 node-icu-charset-detector
+optimist
 # logger.js
 mkdirp
 mustache
