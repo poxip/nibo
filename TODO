@@ -1,9 +1,13 @@
+#docs
+@todo Plugins api documentation
+
 #core
 @future Convenient WHOIS function
 @future Convenient NAMES function
 
 #core, events
-@todo Most of config options are optional
+@todo Config file can be pointed from program argv
+@todo Debug option is loaded from program argv instead of config file
 
 @done Improved callbacks
 @done Show more info about error
@@ -11,6 +15,7 @@
 @done Plugins don't have to have all callbacks
 @done Join on invite option
 @done Inform about connection errors
+@done Most of config options are optional
 
 #core, events, plugins
 @done Bot join event
