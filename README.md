@@ -5,6 +5,14 @@ _nibo_ is useful IRC bot, that can be extended by creating additional __plugins_
 
 Full dependecies list is included in **package.json** or **requirments.txt** (with description)
 
+# How to launch
+Be sure, that you have installed [NodeJS](http://nodejs.org). Check the *Before launching* section for more.
+
+Just run:
+``` sh
+node nibo.js --config=config-file --debug 
+```
+**Debug** option is optional, set it if you want to see debug messages.
 # Before launching
 First you have to patch **node-irc** module with *irc.js* patch, that fixes decoding problems.
 Simply execute:
