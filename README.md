@@ -18,4 +18,7 @@ apt-get install libicu-dev
 ```
 or build from sources http://site.icu-project.org/download
 
-__WIP__, but almost done..
+# Creating your own plugins
+Plugins are files written in NodeJS, which extends the bot's functionality. They are able to access bot's IRC event, such as joining to the channel, saying something, and so on. Check the wiki for simple how to!
+
+__WIP__, but almost done.. check the TODO file!
