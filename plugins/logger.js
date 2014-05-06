@@ -199,16 +199,16 @@ exports.onMode = function (bot, channel, by, mode, target) {
 	appendToFile(dirPath + '/' + fileName, output);
 };
 
-exports.onNotice = function (bot, channel, to, text) {
+exports.onNotice = function (bot, channel, to, message) {
 	if (!channel) {
-		debug.log(to + ' ' + text);
+		debug.log(to + ' ' + message);
 		return;
 	}
 
 	var pattern = '** NOTICE {{&channel}}: {{&message}}';
 	var data = {
 		channel: channel,
-		message: text
+		message: message
 	};
 	var output = mustache.render(pattern, data);
 

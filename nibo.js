@@ -354,7 +354,7 @@ function main() {
 		var args = {
 			channel: channel, // If notice from server - channel = undefined, if notice from user = nick (from)
 			to: to, // channel or user
-			text: text, // notice message
+			message: text, // notice message
 		};
 
 		executeCallback(events.notice, args);
