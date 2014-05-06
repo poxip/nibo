@@ -106,7 +106,7 @@ exports.onUserJoin = function (bot, channel, user) {
 	writeToFile(channel, user.fullName, '[JOINED] to the channel ' + channel);
 };
 
-exports.onMessage = function (bot, user, channel, text, message) {
+exports.onMessage = function (bot, channel, user, text, message) {
 	writeToFile(channel, user.nick, message);
 };
 

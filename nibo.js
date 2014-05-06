@@ -271,8 +271,8 @@ function main() {
 	bot.addListener('message', function (nick, channel, text, message) {
 		var user = bot.getUser(message);
 		var args = {
-			user: user,
 			channel: channel,
+			user: user,
 			message: message.args[1]
 		};
 
