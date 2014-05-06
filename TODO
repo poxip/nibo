@@ -8,6 +8,9 @@
 @future Convenient WHOIS function
 @future Convenient NAMES function
 
+#core, plugins
+@todo Help command
+
 #core, events
 @done Improved callbacks
 @done Show more info about error
