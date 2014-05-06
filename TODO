@@ -3,6 +3,7 @@
 
 #core
 @todo Optional NickServ identification
+@todo SSL support
 
 @future Convenient WHOIS function
 @future Convenient NAMES function
