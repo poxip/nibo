@@ -2,6 +2,8 @@
 @todo Plugins api documentation
 
 #core
+@todo Optional NickServ identification
+
 @future Convenient WHOIS function
 @future Convenient NAMES function
 
