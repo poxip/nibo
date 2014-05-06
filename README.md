@@ -5,7 +5,7 @@ _nibo_ is useful IRC bot, that can be extended by creating additional __plugins_
 
 Full dependecies list is included in **package.json** or **requirments.txt** (with description)
 
-# Installation
+## Installation
 Simply execute:
 ```
 $ make install
@@ -21,7 +21,7 @@ $ apt-get install libicu-dev
 ```
 or build from sources http://site.icu-project.org/download
 
-# Running
+## Running
 Be sure, that you have installed [NodeJS](http://nodejs.org). Check the **Build Requirments** section for more.
 
 Just run:
@@ -30,10 +30,10 @@ $ node nibo.js --config=config-file --debug
 ```
 **Debug** option is optional, set it if you want to see debug messages.
 
-# Creating your own plugins
+## Creating your own plugins
 Plugins are files written in NodeJS, which extends the bot's functionality. They are able to access bot's IRC event, such as joining to the channel, saying something, and so on. Check the wiki for simple how to!
 
-# Useful stuff
+### Useful stuff
 * [Creating your own plugins](https://github.com/MrPoxipol/nibo/wiki/Creating-plugins)
 * [Avaiable config options](https://github.com/MrPoxipol/nibo/wiki/Config-options)
 
