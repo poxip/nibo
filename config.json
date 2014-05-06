@@ -14,5 +14,5 @@
 	"commandPrefix": "!",
 
 	"pluginsDir": "plugins",
-	"plugins": ["logger"]
+	"plugins": ["logger", "weather"]
 }
