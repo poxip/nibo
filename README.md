@@ -10,7 +10,7 @@ Simply execute:
 ```
 make install
 ```
-## Build Requirments
+### Build Requirments
 * NodeJS Environment
 * libicu-dev
 
