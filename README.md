@@ -33,4 +33,7 @@ node nibo.js --config=config-file --debug
 # Creating your own plugins
 Plugins are files written in NodeJS, which extends the bot's functionality. They are able to access bot's IRC event, such as joining to the channel, saying something, and so on. Check the wiki for simple how to!
 
+# Useful stuff
+[Avaiable config options](https://github.com/MrPoxipol/nibo/wiki/Config-options)
+
 Almost done.. check the TODO file for more!
