@@ -13,6 +13,7 @@ $ make install
 ### Build Requirments
 * NodeJS Environment
 * libicu-dev
+* libcurl4-openssl-dev
 
 Nibo uses **node-icu-charset-detector** module, that need **libicu**.
 You can install **ICU** from your package manager, ie. for **apt**:
