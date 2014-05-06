@@ -9,7 +9,6 @@ var debug = require('./debug');
 
 var configPath_default = './config.json';
 var config = {
-	debug: false,
 	server: {
 		host: 'irc.freenode.net',
 		port: 6667
