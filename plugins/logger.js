@@ -89,7 +89,7 @@ exports.onBotJoin = function (bot, channel) {
 	writeToFile(channel, me, '[JOINED] to the channel ' + channel);
 };
 
-exports.onTopic = function (bot, channel, topic, nick, message) {
+exports.onTopic = function (bot, channel, topic, nick) {
 	var pattern = '** Topic for {{&channel}}: {{&topic}} by {{&nick}}';
 	var data = {
 		channel: channel,

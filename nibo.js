@@ -247,7 +247,6 @@ function main() {
 			channel: channel,
 			topic: topic,
 			nick: nick,
-			message: message
 		};
 
 		executeCallback(events.topic, args);
