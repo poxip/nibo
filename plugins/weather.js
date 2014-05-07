@@ -1,8 +1,8 @@
 /** Created on May 6, 2014
  *  author: MrPoxipol
  */
-// Sync Http requests
-var httpSync = require('http-sync');
+
+var http = require('http');
 var util = require('util');
 // Templates module
 var Mustache = require('mustache');
@@ -11,7 +11,7 @@ var debug = require('../nibo/debug');
 
 const COMMAND_NAME = 'weather';
 // pattern for util.format()
-const WEATHER_URL_PATTERN = 'api.openweathermap.org/data/2.5/weather?q=%s&lang=eng';
+const WEATHER_URL_PATTERN = 'http://api.openweathermap.org/data/2.5/weather?q=%s&lang=eng';
 
 exports.meta = {
 	name: 'weather',
@@ -65,26 +65,31 @@ function getWeatherFromJson(data) {
 	return output;
 }
 
-function fetchWeather(place) {
-	place = encodeURIComponent(place);
-	var url = util.format(WEATHER_URL_PATTERN, place);
+function sendResponse(bot, args, message) {
+	bot.sayToUser(args.channel, args.user.nick, message);
+}
 
-	var request = httpSync.request({
-		method: 'GET',
-		host: url
+function fetchWeather(bot, args) {
+	args.place = encodeURIComponent(args.place);
+	var url = util.format(WEATHER_URL_PATTERN, args.place);
+
+	http.get(url, function (response) {
+		response.on('data', function (chunk) {
+			var message = getWeatherFromJson(chunk);
+			if (message) {
+				sendResponse(bot, args, message);
+			} else {
+				sendResponse(bot,
+					args,
+					util.format('[%s] Could not find weather information.', decodeURIComponent(args.place))
+				);
+			}
+
+		});
+	}).on('error', function (e) {
+		debug.error('HTTP ' + e.message);
+		sendResponse(bot, args, '[] Weather is not avaiable at the moment.');
 	});
-	var data = request.end().body.toString();
-
-	if (!data) {
-		return "Weather is not avaiable at the moment.";
-	}
-
-	var result = getWeatherFromJson(data);
-	if (!result) {
-		result = 'Could not find weather information.';
-	}
-
-	return result;
 }
 
 exports.onCommand = function (bot, user, channel, command) {
@@ -94,7 +99,10 @@ exports.onCommand = function (bot, user, channel, command) {
 	if (command.args.length < 1)
 		return;
 
-	var place = command.args.join(' ');
-
-	return fetchWeather(place);
+	var args = {
+		user: user,
+		channel: channel,
+		place: command.args.join(' '),
+	};
+	fetchWeather(bot, args);
 };

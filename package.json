@@ -28,8 +28,6 @@
     "kwargs": "0.0.2",
     "string": "^1.8.1",
     "iconv": "^2.1.0",
-    "optimist": "^0.6.1",
-    "http-sync": "0.0.4"
+    "optimist": "^0.6.1"
   }
 }
-
