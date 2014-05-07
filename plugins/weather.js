@@ -15,6 +15,7 @@ const WEATHER_URL_PATTERN = 'http://api.openweathermap.org/data/2.5/weather?q=%s
 
 exports.meta = {
 	name: 'weather',
+	commandName: COMMAND_NAME,
 	description: 'Fetches actual weather conditions from openweathermap.org at specific place on the Earth'
 };
 
