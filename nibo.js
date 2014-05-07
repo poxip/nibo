@@ -90,15 +90,8 @@ function initPlugins() {
 
 function sendCommandResult(result, method, pluginName, args) {
 	try {
-		var pattern = '{{&nick}}: {{&message}}';
-		var message = result.toString(); // Command result
-		var data = {
-			nick: args.user.nick,
-			message: message
-		};
-		var output = mustache.render(pattern, data);
-
-		bot.say(args.channel, output);
+		// <nibo> user: loook!
+		bot.sayToUser(args.channel, args.user.nick, result.toString());
 	} catch (e) {
 		debug.error('While sending command return message to the user');
 		showPluginRuntimeError(method, pluginName, e);
@@ -212,6 +205,12 @@ function main() {
 		};
 		// Bot says - event
 		executeCallback(events.botSay, args);
+	};
+
+	bot.sayToUser = function (channel, nick, message) {
+		/** Says to the channel @channel: {nick}: {message}*/
+		message = util.format('%s: %s', nick, message);
+		this.say(channel, message);
 	};
 
 	bot.getUser = function (message) {
