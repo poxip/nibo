@@ -187,7 +187,6 @@ function main() {
 			port: config.server.port,
 			channels: config.channels,
 			stripColors: true,
-			retryCount: 5,
 			encoding: true // optional encoding - bug in nodeirc
 		}
 	);
