@@ -20,7 +20,7 @@ var debug = require('./nibo/debug');
 var events = require('./nibo/events');
 var config = require('./nibo/config');
 
-var plugins = [];
+exports.plugins = [];
 
 var bot;
 
@@ -64,22 +64,22 @@ function initPlugins() {
 		}
 
 		debug.success('Module: ' + config.plugins[i] + ' loaded');
-		plugins.push(tempPlugin);
+		exports.plugins.push(tempPlugin);
 
 		try {
 			// Init event
-			var callback = plugins[i][events.init];
+			var callback = exports.plugins[i][events.init];
 			if (callback)
 				callback(bot);
 
 		} catch (e) {
-			showPluginRuntimeError(plugins[i].meta.name, events.init, e);
+			showPluginRuntimeError(exports.plugins[i].meta.name, events.init, e);
 		}
 	}
 
-	if (plugins.length > 0) {
+	if (exports.plugins.length > 0) {
 		var messageToLog = util.format('Loaded %s modules of %s',
-			plugins.length,
+			exports.plugins.length,
 			config.plugins.length
 		);
 		debug.success(messageToLog);
@@ -100,19 +100,19 @@ function sendCommandResult(result, method, pluginName, args) {
 
 function executeCallback(eventName, args) {
 	args.bot = bot;
-	for (var i in plugins) {
+	for (var i in exports.plugins) {
 		var result;
 		try {
-			var callback = plugins[i][eventName];
+			var callback = exports.plugins[i][eventName];
 			if (callback)
 				result = kwargs(callback, args);
 
 		} catch (e) {
-			showPluginRuntimeError(plugins[i].meta.name, eventName + '()', e);
+			showPluginRuntimeError(exports.plugins[i].meta.name, eventName + '()', e);
 		}
 
 		if (result && eventName === events.command)
-			sendCommandResult(result, eventName, plugins[i].meta.name, args);
+			sendCommandResult(result, eventName, exports.plugins[i].meta.name, args);
 	}
 }
 
@@ -208,7 +208,7 @@ function main() {
 	};
 
 	bot.sayToUser = function (channel, nick, message) {
-		/** Says to the channel @channel: {nick}: {message}*/
+		/** Says to the channel @channel: {@nick}: {@message}*/
 		message = util.format('%s: %s', nick, message);
 		this.say(channel, message);
 	};
