@@ -9,7 +9,7 @@ const COMMAND_NAME = 'help';
 exports.meta = {
 	name: 'help',
 	commandName: COMMAND_NAME,
-	description: 'Just helps!'
+	description: 'Simply helps!'
 };
 
 function getCommands() {
