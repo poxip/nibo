@@ -117,7 +117,7 @@ function executeCallback(eventName, args) {
 }
 
 function splitCommand(str, prefix) {
-	var withoutPrefix = str.split(prefix)[1]; // 'command arg1 arg2'
+	var withoutPrefix = S(str).chompLeft(prefix).s; // 'command arg1 arg2'
 	var splitted = withoutPrefix.split(' '); // ['command', 'arg1', 'arg2']
 	var command = {
 		name: splitted[0], //
