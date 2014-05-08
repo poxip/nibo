@@ -78,12 +78,12 @@ exports.onCommand = function (bot, user, channel, command) {
 
 		return message;
 	} else {
-		var message = 'I\'ve never heard about this command!';
+		var message = '[HELP]: I\'ve never heard about this command!';
 
 		var name = command.args[0];
 		var description = getCommandDescription(name);
 		if (description) {
-			message = util.format('[HELP, %s]: %s', name, description);
+			message = util.format('[%s]: %s', name, description);
 		}
 
 		return message;
