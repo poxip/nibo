@@ -75,8 +75,14 @@ function fetchWeather(bot, args) {
 	var url = util.format(WEATHER_URL_PATTERN, args.place);
 
 	http.get(url, function (response) {
+		var responseParts = [];
+		response.setEncoding('utf8');
 		response.on('data', function (chunk) {
-			var message = getWeatherFromJson(chunk);
+			responseParts.push(chunk);
+		});
+		response.on('end', function () {
+			var data = responseParts.join('');
+			var message = getWeatherFromJson(data);
 			if (message) {
 				sendResponse(bot, args, message);
 			} else {
@@ -85,7 +91,6 @@ function fetchWeather(bot, args) {
 					util.format('[%s] Could not find weather information.', decodeURIComponent(args.place))
 				);
 			}
-
 		});
 	}).on('error', function (e) {
 		debug.error('HTTP ' + e.message);
