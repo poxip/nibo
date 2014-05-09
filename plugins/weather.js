@@ -52,7 +52,7 @@ function getWeatherFromJson(data) {
 	weather.temp = kelvinsToCelcius(parsedJson.main.temp);
 	weather.description = parsedJson.weather[0].description;
 	weather.windSpeed = parsedJson.wind.speed;
-	weather.pressure = parsedJson.main.pressure;
+	weather.pressure = Math.round(parsedJson.main.pressure);
 	weather.windChill = calcWindChill(weather.temp, weather.windSpeed);
 
 	var pattern;
