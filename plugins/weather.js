@@ -57,9 +57,9 @@ function getWeatherFromJson(data) {
 
 	var pattern;
 	if (weather.windChill !== null)
-		pattern = '[{{&city}}, {{&country}}]: {{&temp}}°C (felt as {{&windChill}}°C) - {{&description}}, {{&pressure}} hPa';
+		pattern = '[{{&city}}, {{&country}}] {{&temp}}°C (felt as {{&windChill}}°C) - {{&description}}, {{&pressure}} hPa';
 	else
-		pattern = '[{{&city}}, {{&country}}]: {{&temp}}°C - {{&description}}, {{&pressure}} hPa';
+		pattern = '[{{&city}}, {{&country}}] {{&temp}}°C - {{&description}}, {{&pressure}} hPa';
 
 	var output = Mustache.render(pattern, weather);
 
