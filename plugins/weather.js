@@ -94,7 +94,7 @@ function fetchWeather(bot, args) {
 		});
 	}).on('error', function (e) {
 		debug.error('HTTP ' + e.message);
-		sendResponse(bot, args, '[] Weather is not avaiable at the moment.');
+		sendResponse(bot, args, '[] Weather is not available at the moment.');
 	});
 }
 
