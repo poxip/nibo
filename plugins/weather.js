@@ -11,7 +11,7 @@ var debug = require('../nibo/debug');
 
 const COMMAND_NAME = 'weather';
 // pattern for util.format()
-const WEATHER_URL_PATTERN = 'http://api.openweathermap.org/data/2.5/weather?q=%s&lang=eng';
+const API_URL_PATTERN = 'http://api.openweathermap.org/data/2.5/weather?q=%s&lang=eng';
 
 exports.meta = {
 	name: 'weather',
@@ -72,7 +72,7 @@ function sendResponse(bot, args, message) {
 
 function fetchWeather(bot, args) {
 	args.place = encodeURIComponent(args.place);
-	var url = util.format(WEATHER_URL_PATTERN, args.place);
+	var url = util.format(API_URL_PATTERN, args.place);
 
 	http.get(url, function (response) {
 		var responseParts = [];
