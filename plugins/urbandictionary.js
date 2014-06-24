@@ -8,6 +8,8 @@ var util = require('util');
 var Mustache = require('mustache');
 var S = require('string');
 
+// Bot utiles
+var ut = require('../nibo/ut');
 var debug = require('../nibo/debug');
 
 const COMMAND_NAME = 'ud';
@@ -22,19 +24,6 @@ exports.meta = {
 	commandName: COMMAND_NAME,
 	description: 'Polls UrbanDictionary for given phrase. Returns random definition when the term is not specified'
 };
-
-function shorten(str) {
-	/** Shortens string*/
-	if (str.length < DESCRIPTION_MAX_LEN)
-		return str;
-
-	str = str.substr(0, DESCRIPTION_MAX_LEN);
-	var wordWrap = str.lastIndexOf(' ');
-	if (wordWrap == -1) wordWrap = DESCRIPTION_MAX_LEN;
-
-	str = str.substr(0, wordWrap) + '..';
-	return str;
-}
 
 function getDefFromJson(data) {
 	var parsedJson;
@@ -55,8 +44,8 @@ function getDefFromJson(data) {
 	term.id = first.defid;
 	term.link = first.permalink;
 	term.word = first.word;
-	term.definition = shorten(first.definition);
-	term.example = shorten(first.example);
+	term.definition = ut.short(first.definition, DESCRIPTION_MAX_LEN);
+	term.example = ut.short(first.example, DESCRIPTION_MAX_LEN);
 	term.upvotes = first.thumbs_up;
 	term.downvotes = first.thumbs_down;
 
