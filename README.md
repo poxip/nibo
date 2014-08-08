@@ -8,19 +8,10 @@ Full dependecies list is included in **package.json** or **requirments.txt** (wi
 ## Installation
 Simply execute:
 ```
-$ make install
+$ npm install
 ```
 ### Build Requirments
 * NodeJS Environment
-* libicu-dev
-
-Nibo uses **node-icu-charset-detector** module, that need **libicu**.
-You can install **ICU** from your package manager, ie. for **apt**:
-``` 
-$ apt-get install libicu-dev
-```
-or build from sources http://site.icu-project.org/download
-
 ## Running
 Be sure, that you have installed [NodeJS](http://nodejs.org). Check the **Build Requirments** section for more.
 
