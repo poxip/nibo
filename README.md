@@ -12,6 +12,7 @@ $ npm install
 ```
 ### Build Requirments
 * NodeJS Environment
+* 
 ## Running
 Be sure, that you have installed [NodeJS](http://nodejs.org). Check the **Build Requirments** section for more.
 
