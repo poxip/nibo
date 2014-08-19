@@ -9,7 +9,7 @@
 @future Convenient NAMES function
 
 #core, plugins
-@todo Help command
+@done Help command
 
 #core, events
 @done Improved callbacks
