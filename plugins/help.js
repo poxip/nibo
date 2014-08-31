@@ -72,7 +72,7 @@ exports.onCommand = function (bot, user, channel, command) {
 	if (command.args.length < 1) {
 		var avCommands = getListOfCommands(bot);
 
-		var message = util.format('[HELP] Avaiable commands: %s. Say help command_name for description of command.',
+		var message = util.format('[HELP] Available commands: %s. Say help command_name for description of command.',
 			avCommands.toString()
 		);
 
