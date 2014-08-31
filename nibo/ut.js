@@ -36,3 +36,19 @@ exports.short = function (str, maxLength, addDots) {
 
 	return str;
 }
+
+exports.base64 = {
+	encode: function(str) {
+		var buff = new Buffer(str, 'utf8');
+		var encoded = buff.toString('base64');
+
+		return encoded;
+	},
+
+	decode: function(str) {
+		var buff = new Buffer(str, 'base64');
+		var decoded = buff.toString('utf8');
+
+		return decoded;
+	}
+}
