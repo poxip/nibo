@@ -22,6 +22,9 @@ exports.onCommand = function (bot, user, channel, command) {
 	
 	if (command.args.length < 2)
 		return DESCRIPTION;
+		
+	if (command.args[0][0] !== '-') // Not param
+		return DESCRIPTION;
 	
 	// Split string and parameters
 	var type = command.args[0];
