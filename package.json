@@ -1,6 +1,6 @@
 {
   "name": "nibo",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "NodeJS IRC Bot",
   "main": "nibo.js",
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/MrPoxipol/nibo"
+    "url": "http://github.com/MrPoxipol/nibo.git"
   },
   "keywords": [
     "nibo",
@@ -27,7 +27,6 @@
     "mkdirp": "^0.4.0",
     "kwargs": "0.0.2",
     "string": "^1.8.1",
-    "iconv": "^2.1.0",
     "optimist": "^0.6.1"
   }
 }

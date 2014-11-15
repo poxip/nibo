@@ -3,7 +3,7 @@ _nibo_ is useful IRC bot, that can be extended by creating additional __plugins_
 
 **License**: MIT
 
-Full dependecies list is included in **package.json** or **requirments.txt** (with description)
+Full dependecies list is included in **package.json** file.
 
 ## Installation
 Simply execute:
