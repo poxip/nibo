@@ -1,43 +1,7 @@
-#docs
-@todo Plugins api documentation
-
 #core
-@todo Optional NickServ identification
 @todo SSL support
-
 @future Convenient WHOIS function
 @future Convenient NAMES function
-
-#core, plugins
-@done Help command
-
-#core, events
-@done Improved callbacks
-@done Show more info about error
-@done Catch exception on plugin onInit()
-@done Plugins don't have to have all callbacks
-@done Join on invite option
-@done Inform about connection errors
-@done Most of config options are optional
-@done Config file can be pointed from program argv
-@done Debug option is loaded from program argv instead of config file
-
-#core, events, plugins
-@done Bot join event
-@done Channel join event
-@done Topic change/check event
-@done Channel message event
-@done Channel nick change event
-@done Improved join event
-@done Channel part event
-@done Channel quit event
-@done Channel kick event
-@done Channel +Mode event (for channel and user)
-@done Channel -Mode event (for channel and user)
-@done Bot notice event
-@done Command event (if message starts with prefix e.g. '.help')
-@done Bot say event
-@done Tick event (for every 1s)
 
 #core, events, plugins
 @future Ping event
