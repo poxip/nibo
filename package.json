@@ -1,6 +1,6 @@
 {
   "name": "nibo",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "NodeJS IRC Bot",
   "main": "nibo.js",
   "scripts": {
