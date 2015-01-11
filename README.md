@@ -29,4 +29,4 @@ Plugins are files written in NodeJS, which extends the bot's functionality. They
 * [Creating your own plugins](https://github.com/MrPoxipol/nibo/wiki/Creating-plugins)
 * [Avaiable config options](https://github.com/MrPoxipol/nibo/wiki/Config-options)
 
-Almost done.. check the TODO file for more!
+Looking for live __nibo__? Check out __#nibo__ on Freenode!
