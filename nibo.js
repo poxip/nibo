@@ -20,6 +20,11 @@ var debug = require('./nibo/debug');
 var events = require('./nibo/events');
 var config = require('./nibo/config');
 
+process.on('uncaughtException', function (err) {
+	debug.error('Uncaught exception occurred!');
+	console.log(err.stack.magenta);
+});
+
 exports.plugins = [];
 
 var bot;
