@@ -1,13 +1,13 @@
 /** Created on 24 Jun, 2014
  *  author: MrPoxipol
  *
- *	Utiles fuctions.
+ *    Utile functions.
  */
 
 // @TODO: Write tests for utiles module
+var http = require('http');
 
 var ut = {};
-
 /**
  *    Cuts the string to specified length (to first space from right)
  *    @param {string} str - string to be shorten
@@ -60,6 +60,36 @@ ut.base64.encode = function (str) {
 ut.base64.decode = function (str) {
 	var buff = new Buffer(str, 'base64');
 	return buff.toString('utf8');
+};
+
+/**
+ * Http utilities
+ */
+ut.http = {};
+
+/**
+ * Asynchronus http get request function
+ * @param {string} url - A url to make a request
+ * @param {function} [callback] - Optional callback function
+ *                                  to be called on request success - callback(data)
+ * @throws http.Error on any error
+ */
+ut.http.get = function (url, callback) {
+	http.get(url, function (response) {
+		var responseParts = [];
+		response.setEncoding('utf8');
+		response.on('data', function (chunk) {
+			responseParts.push(chunk);
+		});
+		response.on('end', function () {
+			var data = responseParts.join('');
+			if (callback) {
+				callback(data);
+			}
+		});
+	}).on('error', function (err) {
+		throw err;
+	});
 };
 
 module.exports = ut;
