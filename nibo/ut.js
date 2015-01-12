@@ -4,15 +4,19 @@
  *	Utiles fuctions.
  */
 
-exports.short = function (str, maxLength, addDots) {
-	/** @function utiles.short
-	 *	Cuts the string to specified length (to first space from right)
-	 *	@param {String} string to short
-	 *	@param {int} maximal length of shorted string. <b>Default: 250.</b>
-	 *	@param {boolean} defines that the elipsis (..) and (more) should be added on end of the shorted string. <b>Default: true</b>
-	 *	\return shorted string.
-	*/
+// @TODO: Write tests for utiles module
 
+var ut = {};
+
+/**
+ *    Cuts the string to specified length (to first space from right)
+ *    @param {string} str - string to be shorten
+ *    @param {int} maxLength - maximal length of shorted string. Default: 250.
+ *    @param {boolean} addDots - defines that the elipsis (..) and (more) should be added
+ *                               at end of the shorted string. Default: true
+ *    @return shorted string
+ */
+ut.short = function (str, maxLength, addDots) {
 	if (!maxLength) {
 		maxLength = 250;
 	}
@@ -35,20 +39,27 @@ exports.short = function (str, maxLength, addDots) {
 	}
 
 	return str;
-}
+};
 
-exports.base64 = {
-	encode: function(str) {
-		var buff = new Buffer(str, 'utf8');
-		var encoded = buff.toString('base64');
+ut.base64 = {};
+/**
+ * Uses Base64 to encode given string
+ * @param {string} str - A string to be encoded
+ * @returns {string} Encoded string
+ */
+ut.base64.encode = function (str) {
+	var buff = new Buffer(str, 'utf8');
+	return buff.toString('base64');
+};
 
-		return encoded;
-	},
+/**
+ * Uses Base64 to decode given string
+ * @param {string} str - A string to be decoded
+ * @returns {string} Decoded string
+ */
+ut.base64.decode = function (str) {
+	var buff = new Buffer(str, 'base64');
+	return buff.toString('utf8');
+};
 
-	decode: function(str) {
-		var buff = new Buffer(str, 'base64');
-		var decoded = buff.toString('utf8');
-
-		return decoded;
-	}
-}
+module.exports = ut;
