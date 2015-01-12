@@ -7,6 +7,7 @@ var util = require('util');
 // Templates module
 var Mustache = require('mustache');
 
+var ut = require('../nibo/ut');
 var debug = require('../nibo/debug');
 
 const COMMAND_NAME = 'weather';
@@ -74,14 +75,8 @@ function fetchWeather(bot, args) {
 	args.place = encodeURIComponent(args.place);
 	var url = util.format(API_URL_PATTERN, args.place);
 
-	http.get(url, function (response) {
-		var responseParts = [];
-		response.setEncoding('utf8');
-		response.on('data', function (chunk) {
-			responseParts.push(chunk);
-		});
-		response.on('end', function () {
-			var data = responseParts.join('');
+	try {
+		ut.http.get(url, function (data) {
 			var message = getWeatherFromJson(data);
 			if (message) {
 				sendResponse(bot, args, message);
@@ -92,10 +87,10 @@ function fetchWeather(bot, args) {
 				);
 			}
 		});
-	}).on('error', function (e) {
+	} catch (e) {
 		debug.error('HTTP ' + e.message);
 		sendResponse(bot, args, '[] Weather is not available at the moment.');
-	});
+	}
 }
 
 exports.onCommand = function (bot, user, channel, command) {
@@ -108,7 +103,7 @@ exports.onCommand = function (bot, user, channel, command) {
 	var args = {
 		user: user,
 		channel: channel,
-		place: command.args.join(' '),
+		place: command.args.join(' ')
 	};
 	fetchWeather(bot, args);
 };
