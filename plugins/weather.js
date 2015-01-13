@@ -2,7 +2,6 @@
  *  author: MrPoxipol
  */
 
-var http = require('http');
 var util = require('util');
 // Templates module
 var Mustache = require('mustache');
