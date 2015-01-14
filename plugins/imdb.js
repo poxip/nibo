@@ -60,7 +60,8 @@ exports.onCommand = function (bot, user, channel, command) {
 
         var pattern = "[{{{ Title }}} ({{{ Year }}}, " +
             "{{{ Country }}}) {{{ Genre }}}/{{{ Type }}}] " +
-            "{{{ imdbRating }}}/10 - Starring: {{{ Actors }}}: {{{ Plot }}}";
+            "{{{ imdbRating }}}/10 - Starring: {{{ Actors }}}: {{{ Plot }}} " +
+            "http://imdb.com/title/{{ imdbID }}";
         var output = Mustache.render(pattern, data);
         bot.sayToUser(channel, user.nick, output);
     });
