@@ -9,10 +9,20 @@
 		"userName": "nibo",
 		"realName": "NodeJS IRC Bot src: http://git.io/y5fYXQ"
 	},
-	"channels": ["#poxip"],
+  "channels": [
+	"#nibo",
+	"#poxip"
+  ],
 
 	"commandPrefix": "!",
 
 	"pluginsDir": "plugins",
-	"plugins": ["logger", "weather", "help", "urbandictionary", "base64"]
+  "plugins": [
+	"logger",
+	"weather",
+	"help",
+	"urbandictionary",
+	"imdb",
+	"base64"
+  ]
 }
