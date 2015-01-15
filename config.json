@@ -1,6 +1,6 @@
 {
 	"server": {
-		"host": "irc.freenode.net",
+		"host": "chat.freenode.net",
 		"port": 6667
 	},
 
@@ -23,6 +23,7 @@
 	"help",
 	"urbandictionary",
 	"imdb",
+	"time",
 	"base64"
   ]
 }
