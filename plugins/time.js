@@ -8,6 +8,7 @@ var util = require('util');
 var Mustache = require('mustache');
 
 var ut = require('../nibo/ut');
+var debug = require('../nibo/debug');
 
 const COORDS_API_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
 const TIMEZONE_API_URL = 'https://maps.googleapis.com/maps/api/timezone/json';
@@ -34,6 +35,7 @@ exports.onCommand = function (bot, user, channel, command) {
         coordsData = JSON.parse(
             ut.sanitize(coordsData)
         );
+        debug.debug(coordsData);
         if (coordsData.results.length < 1) {
             bot.sayToUser(channel, user.nick,
                 util.format(
@@ -51,10 +53,10 @@ exports.onCommand = function (bot, user, channel, command) {
                 "?location=%s,%s&timestamp=%d",
                 location.lat, location.lng, timestamp
             );
-        console.log(timeUrl);
         ut.https.get(timeUrl, function (timeData) {
             timeData = JSON.parse(ut.sanitize(timeData));
-            console.log(timeData);
+            debug.debug(timeData);
+
             if (timeData.status !== 'OK') {
                 bot.sayToUser(channel, user.nick,
                     util.format(
@@ -74,7 +76,6 @@ exports.onCommand = function (bot, user, channel, command) {
                 time: cityTime.toLocaleTimeString(),
                 id: timeData.timeZoneId
             });
-            console.log(output);
             bot.sayToUser(channel, user.nick, output);
         });
 
