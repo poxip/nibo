@@ -5,7 +5,9 @@
  */
 
 // @TODO: Write tests for utiles module
-var http = require('http');
+var http  = require('http');
+var https = require('https');
+var S	  = require('string');
 
 var ut = {};
 /**
@@ -63,19 +65,27 @@ ut.base64.decode = function (str) {
 };
 
 /**
- * Http utilities
+ * Removes HTML entities and trims the string
+ * @param {string} str - A string to be sanitized
+ * @returns {string}
+ */
+ut.sanitize = function (str) {
+	return S(str).decodeHTMLEntities().s;
+};
+
+/**
+ * Http utilities, for SSL support use https
  */
 ut.http = {};
 
 /**
- * Asynchronus http get request function
- * @param {string} url - A url to make a request
- * @param {function} [callback] - Optional callback function
- *                                  to be called on request success - callback(data)
- * @throws http.Error on any error
+ * Make HTTP(S) request using specified protocol
+ * @param {Object}  type - http/https module (require('http') or 'https')
+ * @param {string}  url  - A url to make request
+ * @param {funtion} callback - A callback to be called on response
  */
-ut.http.get = function (url, callback) {
-	http.get(url, function (response) {
+function makeRequest(type, url, callback) {
+	type.get(url, function (response) {
 		var responseParts = [];
 		response.setEncoding('utf8');
 		response.on('data', function (chunk) {
@@ -90,6 +100,33 @@ ut.http.get = function (url, callback) {
 	}).on('error', function (err) {
 		throw err;
 	});
+}
+
+/**
+ * Asynchronus http get request function
+ * @param {string} url - A url to make a request
+ * @param {function} [callback] - Optional callback function
+ *                                to be called on request success - callback(data)
+ * @throws http.Error on any error
+ */
+ut.http.get = function (url, callback) {
+	makeRequest(http, url, callback);
+};
+
+/**
+ * Https utilitiess
+ */
+ut.https = {};
+
+/**
+ * Same as ut.http.get but for SSL
+ * @param {string} url - A url to make a request
+ * @param {function} [callback] - Optional callback function
+ *                                to be called on request success - callback(data)
+ * @throws https.Error on any error
+ */
+ut.https.get = function (url, callback) {
+	makeRequest(https, url, callback);
 };
 
 module.exports = ut;
