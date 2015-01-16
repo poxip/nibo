@@ -21,7 +21,9 @@ const DESCRIPTION_MAX_LEN = 250;
 exports.meta = {
 	name: 'urban-dictionary',
 	commandName: COMMAND_NAME,
-	description: 'Polls UrbanDictionary for given phrase. Returns random definition when the term is not specified'
+	description: "Polls UrbanDictionary for given phrase and " +
+				"returns random definition when the term is not specified. " +
+				"Usage: ud (<phrase>) -- phrase is optional"
 };
 
 function getDefFromJson(data) {

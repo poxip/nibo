@@ -16,7 +16,9 @@ const API_URL_PATTERN = 'http://api.openweathermap.org/data/2.5/weather?q=%s&lan
 exports.meta = {
 	name: 'weather',
 	commandName: COMMAND_NAME,
-	description: 'Fetches actual weather conditions from openweathermap.org at specific place on the Earth'
+	description: "Fetches actual weather conditions from openweathermap.org " +
+				 "at specific place on the Earth. " +
+				 "Usage: weather <location>"
 };
 
 function kelvinsToCelcius(temperature) {

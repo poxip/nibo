@@ -7,8 +7,8 @@
 var ut = require('../nibo/ut');
 
 const COMMAND_NAME = 'base64';
-const DESCRIPTION  = 'Base64 encoding/decoding. \
-Usage: base64 -e|-d string (encode|decode)';
+const DESCRIPTION  = "Base64 encoding/decoding. " +
+	                 "Usage: base64 -e|-d <string> -- encode/decode";
 
 exports.meta = {
 	name: 'help',

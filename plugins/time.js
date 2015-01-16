@@ -17,7 +17,8 @@ const LANG = 'en_US';
 exports.meta = {
     name: 'time',
     commandName: 'time',
-    description: "Informs about current time at specified place"
+    description: "Informs about current time at specified place. " +
+                 "Usage: time <location>"
 };
 
 exports.onCommand = function (bot, user, channel, command) {
