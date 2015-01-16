@@ -69,23 +69,23 @@ exports.onCommand = function (bot, user, channel, command) {
 	if (command.name !== COMMAND_NAME)
 		return;
 	// !help
+	var avCommands = getListOfCommands(bot);
 	if (command.args.length < 1) {
-		var avCommands = getListOfCommands(bot);
-
-		var message = util.format('[HELP] Available commands: %s. Say help command_name for description of command.',
+		var message = util.format('[help] Available commands: %s. Say help command_name for description of command',
 			avCommands.toString()
 		);
 
 		return message;
 	} else {
-		var message = '[HELP]: I\'ve never heard about this command!';
-
 		var name = command.args[0];
-		var description = getCommandDescription(name);
-		if (description) {
-			message = util.format('[%s] %s', name, description);
+		if (avCommands.indexOf(name) == -1) {
+			return util.format("[%s] Command not found", name);
 		}
 
-		return message;
+		var description = getCommandDescription(name);
+		return util.format(
+			'[%s] %s', name,
+			description ? description : "No description found"
+		);
 	}
 };
