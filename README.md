@@ -1,6 +1,5 @@
-[![Build Status](https://travis-ci.org/poxip/nibo.svg)](https://travis-ci.org/poxip/nibo)
-# Nibo - nodejs irc bot
-_nibo_ is useful IRC bot, that can be extended by creating additional __plugins__.
+# Nibo - nodejs irc bot [![Build Status](https://travis-ci.org/poxip/nibo.svg)](https://travis-ci.org/poxip/nibo)
+_nibo_ - extensible IRC bot written in NodeJS
 
 ## Installation
 Simply execute:
@@ -13,20 +12,16 @@ $ npm install
 Full dependecies list is included in **package.json** file.
 ## Running
 Be sure, that you have installed [NodeJS](http://nodejs.org).
-Then just run:
-```
-$ node nibo.js --config=config-file --debug 
-```
-or
+Then just execute:
 ```
 $ ./runnibo --config=config-file --debug
 ```
 **Debug** option is optional, set it if you want to see debug messages.
-## Creating your own plugins
-Plugins are files written in NodeJS, which extends the bot's functionality. They are able to access bot's IRC events, such as joining to the channel, saying something, and so on. [Check the wiki](https://github.com/MrPoxipol/nibo/wiki/Creating-plugins) for a simple how to!
+## Creating plugins
+Plugins are NodeJS modules, which extends bot's functionality. A plugin is able to access bot's IRC events, such __as joining to the channel, saying something, and so on.__ [Check the wiki](https://github.com/MrPoxipol/nibo/wiki/Creating-plugins) for a simple how to!
 ### Useful stuff
-* [Creating your own plugins](https://github.com/MrPoxipol/nibo/wiki/Creating-plugins)
-* [Avaiable config options](https://github.com/MrPoxipol/nibo/wiki/Config-options)
+* [Creating your own plugins](https://github.com/poxip/nibo/wiki/Creating-plugins)
+* [Avaiable config options](https://github.com/poxip/nibo/wiki/Config-options)
 
 Looking for live __nibo__? Check out __#nibo__ on Freenode!
 ### License
