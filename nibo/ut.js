@@ -5,9 +5,9 @@
  */
 
 // @TODO: Write tests for utiles module
-var http  = require('http');
+var http = require('http');
 var https = require('https');
-var S	  = require('string');
+var S = require('string');
 
 var ut = {};
 /**
@@ -19,28 +19,28 @@ var ut = {};
  *    @return shorted string
  */
 ut.short = function (str, maxLength, addDots) {
-	if (!maxLength) {
-		maxLength = 250;
-	}
+    if (!maxLength) {
+        maxLength = 250;
+    }
 
-	if (typeof addDots === 'undefined') {
-		addDots = true;
-	}
+    if (typeof addDots === 'undefined') {
+        addDots = true;
+    }
 
-	if (str.length < maxLength)
-		return str;
+    if (str.length < maxLength)
+        return str;
 
-	str = str.substr(0, maxLength);
-	var wordWrap = str.lastIndexOf(' ');
-	if (wordWrap == -1) wordWrap = maxLength;
+    str = str.substr(0, maxLength);
+    var wordWrap = str.lastIndexOf(' ');
+    if (wordWrap == -1) wordWrap = maxLength;
 
-	str = str.substr(0, wordWrap);
+    str = str.substr(0, wordWrap);
 
-	if (addDots) {
-		str += '.. (more).';
-	}
+    if (addDots) {
+        str += '.. (more).';
+    }
 
-	return str;
+    return str;
 };
 
 ut.base64 = {};
@@ -50,8 +50,8 @@ ut.base64 = {};
  * @returns {string} Encoded string
  */
 ut.base64.encode = function (str) {
-	var buff = new Buffer(str, 'utf8');
-	return buff.toString('base64');
+    var buff = new Buffer(str, 'utf8');
+    return buff.toString('base64');
 };
 
 /**
@@ -60,8 +60,8 @@ ut.base64.encode = function (str) {
  * @returns {string} Decoded string
  */
 ut.base64.decode = function (str) {
-	var buff = new Buffer(str, 'base64');
-	return buff.toString('utf8');
+    var buff = new Buffer(str, 'base64');
+    return buff.toString('utf8');
 };
 
 /**
@@ -70,7 +70,7 @@ ut.base64.decode = function (str) {
  * @returns {string}
  */
 ut.sanitize = function (str) {
-	return S(str).decodeHTMLEntities().s;
+    return S(str).decodeHTMLEntities().s;
 };
 
 /**
@@ -85,21 +85,21 @@ ut.http = {};
  * @param {funtion} callback - A callback to be called on response
  */
 function makeRequest(type, url, callback) {
-	type.get(url, function (response) {
-		var responseParts = [];
-		response.setEncoding('utf8');
-		response.on('data', function (chunk) {
-			responseParts.push(chunk);
-		});
-		response.on('end', function () {
-			var data = responseParts.join('');
-			if (callback) {
-				callback(data);
-			}
-		});
-	}).on('error', function (err) {
-		throw err;
-	});
+    type.get(url, function (response) {
+        var responseParts = [];
+        response.setEncoding('utf8');
+        response.on('data', function (chunk) {
+            responseParts.push(chunk);
+        });
+        response.on('end', function () {
+            var data = responseParts.join('');
+            if (callback) {
+                callback(data);
+            }
+        });
+    }).on('error', function (err) {
+        throw err;
+    });
 }
 
 /**
@@ -110,7 +110,7 @@ function makeRequest(type, url, callback) {
  * @throws http.Error on any error
  */
 ut.http.get = function (url, callback) {
-	makeRequest(http, url, callback);
+    makeRequest(http, url, callback);
 };
 
 /**
@@ -126,7 +126,7 @@ ut.https = {};
  * @throws https.Error on any error
  */
 ut.https.get = function (url, callback) {
-	makeRequest(https, url, callback);
+    makeRequest(https, url, callback);
 };
 
 module.exports = ut;

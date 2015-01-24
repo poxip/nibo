@@ -1,29 +1,26 @@
 {
-	"server": {
-		"host": "chat.freenode.net",
-		"port": 6667
-	},
-
-	"bot": {
-		"nick": "nibo",
-		"userName": "nibo",
-		"realName": "NodeJS IRC Bot src: http://git.io/y5fYXQ"
-	},
+  "server": {
+    "host": "chat.freenode.net",
+    "port": 6667
+  },
+  "bot": {
+    "nick": "nibo",
+    "userName": "nibo",
+    "realName": "NodeJS IRC Bot src: http://git.io/y5fYXQ"
+  },
   "channels": [
-	"#nibo",
-	"#poxip"
+    "#nibo",
+    "#poxip"
   ],
-
-	"commandPrefix": "!",
-
-	"pluginsDir": "plugins",
+  "commandPrefix": "!",
+  "pluginsDir": "plugins",
   "plugins": [
-	"logger",
-	"weather",
-	"help",
-	"urbandictionary",
-	"imdb",
-	"time",
-	"base64"
+    "logger",
+    "weather",
+    "help",
+    "urbandictionary",
+    "imdb",
+    "time",
+    "base64"
   ]
 }

@@ -18,7 +18,7 @@ exports.meta = {
     name: 'time',
     commandName: 'time',
     description: "Informs about current time at specified place. " +
-                 "Usage: time <location>"
+    "Usage: time <location>"
 };
 
 exports.onCommand = function (bot, user, channel, command) {
@@ -67,12 +67,12 @@ exports.onCommand = function (bot, user, channel, command) {
                 return;
             }
 
-            var utcTimestamp = timestamp + new Date().getTimezoneOffset()*60;
+            var utcTimestamp = timestamp + new Date().getTimezoneOffset() * 60;
             var cityTime = new Date(
-                (utcTimestamp + timeData.rawOffset + timeData.dstOffset)*1000
+                (utcTimestamp + timeData.rawOffset + timeData.dstOffset) * 1000
             );
-            var pattern  = "[{{{ city }}}] {{{ time }}} {{{ id }}}";
-            var output   = Mustache.render(pattern, {
+            var pattern = "[{{{ city }}}] {{{ time }}} {{{ id }}}";
+            var output = Mustache.render(pattern, {
                 city: coordsData.results[0].formatted_address,
                 time: cityTime.toLocaleTimeString(),
                 id: timeData.timeZoneId
