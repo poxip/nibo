@@ -17,6 +17,10 @@ Then just execute:
 $ ./runnibo --config=config-file --debug
 ```
 **Debug** option is optional, set it if you want to see debug messages.
+
+#### Problems with node-irc and Iconv
+Currently [node-irc](https://github.com/martynsmith/node-irc) module has a lot of bugs and one of them is a problem with charset conversion (such as `Error: Conversion not supported.`), at the moment the only way to fix it is to downgrade _node-irc_ to version __0.3.7__ (the problem exists on _node-irc >= 0.3.8_). Of course this might cause other problems like broken unicode support, but the bot will work at least (_Welcome to NodeJS world, my friend!_).
+
 ## Creating plugins
 Plugins are NodeJS modules, which extends bot's functionality. A plugin is able to access bot's IRC events, such __as joining to the channel, saying something, and so on.__ [Check the wiki](https://github.com/MrPoxipol/nibo/wiki/Creating-plugins) for a simple how to!
 ### Useful stuff
