@@ -5,6 +5,7 @@
 // Modules
 var fs = require('fs');
 var util = require('util');
+var ut = require('./ut');
 var debug = require('./debug');
 
 var configPath_default = './config.json';
@@ -53,25 +54,22 @@ function _loadConfig(configPath) {
         return "Config parsing error occurred: " + err.name + '\n' + (new Error().stack);
     }
     // Set up only these variables, which are set in config file
-    for (var key in parsedConfig) {
+    Object.keys(parsedConfig).forEach(function(key) {
         var parsedVar = parsedConfig[key];
-        var debugMsg = util.format('config[%s] => %s', key, util.inspect(parsedVar));
-        debug.debug(debugMsg);
+        debug.debug(ut.format('config[{key}] => {data}', {
+            key: key,
+            data: util.inspect(parsedVar)
+        }));
 
-        // fak u h4x0rs
-        if (typeof config[key] === 'function')
-            continue;
+        // Prevent from overriding loadConfig() method
+        if (typeof config[key] === 'function') {
+            return;
+        }
 
         config[key] = parsedVar;
-        // {foo: {a: 'bar'}} support
-        if (parsedVar.length > 1)
-            for (var sub in parsedVar) {
-                config[key][sub] = parsedVar[sub];
-            }
-    }
+    });
 
-    // Clear code
-    return undefined;
+    return;
 }
 
 config.loadConfig = function (configPath) {
