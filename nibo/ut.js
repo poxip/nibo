@@ -11,12 +11,29 @@ var S = require('string');
 
 var ut = {};
 /**
- *    Cuts the string to specified length (to first space from right)
- *    @param {string} str - string to be shorten
- *    @param {int} maxLength - maximal length of shorted string. Default: 250.
- *    @param {boolean} addDots - defines that the elipsis (..) and (more) should be added
+ * Python-like string format function
+ *
+ * @param {String} str - Template string.
+ * @param {Object} data - Data to insert strings from.
+ * @returns {String}
+ */
+ ut.format = function(str, data) {
+    return str.replace(/{([^{}]+)}/g, function(match, val) {
+        var prop = data;
+        val.split('.').forEach(function(key) {
+            prop = prop[key];
+        });
+
+        return prop;
+    });
+};
+/**
+ * Cuts the string to specified length (to first space from right)
+ * @param {string} str - string to be shorten
+ * @param {int} maxLength - maximal length of shorted string. Default: 250.
+ * @param {boolean} addDots - defines that the elipsis (..) and (more) should be added
  *                               at end of the shorted string. Default: true
- *    @return shorted string
+ * @return shorted string
  */
 ut.short = function (str, maxLength, addDots) {
     if (!maxLength) {
