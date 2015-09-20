@@ -4,7 +4,7 @@
     "port": 6667
   },
   "bot": {
-    "nick": "nibo",
+    "nick": "nibo-test",
     "userName": "nibo",
     "realName": "NodeJS IRC Bot src: http://git.io/y5fYXQ"
   },
@@ -21,6 +21,7 @@
     "urbandictionary",
     "imdb",
     "time",
-    "base64"
+    "base64",
+    "wolfram"
   ]
 }
